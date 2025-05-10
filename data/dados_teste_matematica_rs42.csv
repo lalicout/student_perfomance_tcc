@@ -1,0 +1,120 @@
+escola,genero,idade,endereco,tamanho_familia,status_parental,escolaridade_mae,escolaridade_pai,profissao_mae,profissao_pai,motivo_escolha_escola,responsavel_legal,tempo_transporte,tempo_estudo,reprovacoes,apoio_escolar,apoio_familiar,aulas_particulares,atividades_extracurriculares,frequentou_creche,interesse_ensino_superior,acesso_internet,relacionamento_romantico,relacao_familiar,tempo_livre,frequencia_saidas,alcool_dias_uteis,alcool_fim_semana,saude,faltas,nota1,nota2,nota_final,aprovacao
+Gabriel Pereira,Mulher,18,Urbano,3 membros ou menos,Juntos,4,3,Outra profissão,Outra profissão,Próximo de casa,Outro responsável,2,2,0,Não,Sim,Sim,Não,Sim,Sim,Sim,Sim,4,4,5,1,2,2,10,10,8,8,Reprovado
+Gabriel Pereira,Mulher,16,Urbano,3 membros ou menos,Juntos,3,1,Outra profissão,Outra profissão,Próximo de casa,Pai,1,2,0,Sim,Sim,Não,Não,Sim,Sim,Não,Não,3,3,3,2,3,2,4,7,6,6,Reprovado
+Gabriel Pereira,Mulher,19,Urbano,Mais de 3 membros,Juntos,3,3,Outra profissão,Serviços,Próximo de casa,Outro responsável,1,2,2,Não,Sim,Sim,Sim,Sim,Sim,Sim,Não,4,3,5,3,3,5,15,9,9,9,Reprovado
+Gabriel Pereira,Mulher,17,Urbano,Mais de 3 membros,Juntos,3,2,Outra profissão,Outra profissão,Curso específico,Mãe,1,2,0,Não,Não,Não,Sim,Não,Sim,Sim,Não,5,3,4,1,3,3,10,16,15,15,Aprovado
+Gabriel Pereira,Mulher,16,Urbano,3 membros ou menos,Juntos,2,2,Outra profissão,Dono de casa,Curso específico,Pai,2,2,1,Sim,Não,Não,Sim,Sim,Sim,Sim,Não,4,3,3,2,2,5,14,10,10,9,Reprovado
+Gabriel Pereira,Homem,16,Urbano,3 membros ou menos,Juntos,2,1,Dona de casa,Outra profissão,Curso específico,Mãe,1,1,1,Não,Não,Não,Sim,Sim,Sim,Não,Sim,4,4,4,3,5,5,6,12,13,14,Aprovado
+Gabriel Pereira,Mulher,17,Rural,Mais de 3 membros,Juntos,2,1,Dona de casa,Serviços,Curso específico,Mãe,3,2,0,Não,Não,Não,Sim,Sim,Sim,Não,Não,2,1,1,1,1,3,2,13,11,11,Aprovado
+Gabriel Pereira,Homem,15,Urbano,3 membros ou menos,Juntos,1,2,Outra profissão,Dono de casa,Próximo de casa,Pai,1,2,0,Sim,Sim,Não,Sim,Sim,Sim,Sim,Não,4,3,2,1,1,5,2,9,10,9,Reprovado
+Mousinho da Silveira,Homem,18,Urbano,3 membros ou menos,Juntos,1,3,Dona de casa,Serviços,Curso específico,Mãe,1,1,1,Não,Não,Não,Não,Sim,Não,Sim,Sim,4,3,3,2,3,3,7,8,7,8,Reprovado
+Gabriel Pereira,Mulher,17,Urbano,Mais de 3 membros,Juntos,1,1,Dona de casa,Outra profissão,Curso específico,Pai,1,2,0,Não,Sim,Não,Não,Não,Sim,Sim,Não,5,3,3,1,1,3,4,5,5,6,Reprovado
+Gabriel Pereira,Mulher,17,Rural,Mais de 3 membros,Juntos,2,4,Dona de casa,Outra profissão,Curso específico,Pai,1,3,0,Não,Sim,Não,Não,Sim,Sim,Sim,Sim,4,4,3,1,1,5,7,12,14,14,Aprovado
+Gabriel Pereira,Mulher,15,Urbano,3 membros ou menos,Juntos,3,2,Serviços,Outra profissão,Reputação da escola,Mãe,1,2,0,Não,Sim,Sim,Não,Sim,Sim,Sim,Não,4,4,4,1,1,5,10,7,6,6,Reprovado
+Gabriel Pereira,Mulher,17,Urbano,Mais de 3 membros,Juntos,2,3,Dona de casa,Outra profissão,Próximo de casa,Pai,2,1,0,Não,Sim,Sim,Não,Sim,Sim,Não,Não,3,3,3,1,4,3,3,7,7,8,Reprovado
+Gabriel Pereira,Homem,18,Rural,3 membros ou menos,Separados,3,4,Outra profissão,Outra profissão,Reputação da escola,Mãe,2,2,0,Não,Sim,Sim,Sim,Sim,Sim,Sim,Não,4,2,5,3,4,1,13,17,17,17,Aprovado
+Gabriel Pereira,Homem,16,Urbano,3 membros ou menos,Juntos,4,3,Professor(a),Outra profissão,Curso específico,Mãe,1,1,0,Não,Não,Não,Sim,Não,Sim,Sim,Não,5,4,5,1,1,3,0,6,0,0,Reprovado
+Gabriel Pereira,Mulher,16,Urbano,3 membros ou menos,Juntos,1,1,Dona de casa,Dono de casa,Curso específico,Mãe,1,1,0,Não,Não,Não,Não,Sim,Sim,Sim,Não,3,4,4,3,3,1,2,14,14,13,Aprovado
+Mousinho da Silveira,Homem,18,Urbano,3 membros ou menos,Juntos,4,4,Professor(a),Serviços,Outro motivo,Mãe,2,3,0,Não,Não,Sim,Não,Sim,Sim,Sim,Sim,4,2,2,2,2,5,0,13,13,13,Aprovado
+Gabriel Pereira,Mulher,16,Urbano,Mais de 3 membros,Juntos,1,1,Serviços,Serviços,Curso específico,Pai,4,1,0,Sim,Sim,Não,Sim,Não,Sim,Sim,Sim,5,5,5,5,5,5,6,10,8,11,Aprovado
+Gabriel Pereira,Homem,22,Urbano,Mais de 3 membros,Juntos,3,1,Serviços,Serviços,Outro motivo,Mãe,1,1,3,Não,Não,Não,Não,Não,Não,Sim,Sim,5,4,5,5,5,1,16,6,8,8,Reprovado
+Gabriel Pereira,Mulher,15,Rural,3 membros ou menos,Juntos,3,1,Outra profissão,Outra profissão,Reputação da escola,Pai,2,4,0,Não,Sim,Não,Não,Não,Sim,Sim,Não,4,4,2,2,3,3,12,16,16,16,Aprovado
+Gabriel Pereira,Mulher,18,Rural,Mais de 3 membros,Juntos,2,2,Dona de casa,Outra profissão,Curso específico,Mãe,2,4,0,Não,Não,Não,Sim,Sim,Sim,Não,Não,4,4,4,1,1,4,0,10,9,0,Reprovado
+Gabriel Pereira,Homem,16,Urbano,3 membros ou menos,Separados,3,4,Serviços,Outra profissão,Próximo de casa,Mãe,1,2,0,Sim,Sim,Não,Sim,Sim,Sim,Sim,Não,5,3,3,1,1,5,4,11,11,11,Aprovado
+Gabriel Pereira,Mulher,17,Urbano,Mais de 3 membros,Juntos,3,1,Serviços,Serviços,Curso específico,Pai,1,3,0,Não,Sim,Não,Não,Não,Sim,Sim,Não,3,4,3,2,3,5,1,12,14,15,Aprovado
+Mousinho da Silveira,Homem,18,Rural,Mais de 3 membros,Juntos,1,3,Dona de casa,Outra profissão,Curso específico,Mãe,2,2,0,Não,Sim,Sim,Não,Sim,Sim,Não,Não,3,3,4,2,4,3,4,10,10,10,Aprovado
+Gabriel Pereira,Homem,17,Rural,Mais de 3 membros,Juntos,3,4,Dona de casa,Outra profissão,Curso específico,Mãe,3,2,0,Não,Não,Não,Não,Sim,Sim,Não,Não,5,4,5,2,4,5,0,10,0,0,Reprovado
+Gabriel Pereira,Mulher,16,Urbano,Mais de 3 membros,Juntos,3,3,Outra profissão,Serviços,Próximo de casa,Mãe,1,2,0,Sim,Sim,Sim,Sim,Sim,Sim,Sim,Não,4,3,3,2,4,5,54,11,12,11,Aprovado
+Mousinho da Silveira,Mulher,17,Urbano,3 membros ou menos,Juntos,4,4,Dona de casa,Dono de casa,Curso específico,Mãe,1,2,0,Não,Sim,Sim,Sim,Sim,Sim,Sim,Sim,2,3,4,1,1,1,0,16,15,15,Aprovado
+Gabriel Pereira,Mulher,17,Rural,3 membros ou menos,Juntos,2,2,Serviços,Serviços,Curso específico,Mãe,1,3,0,Não,Sim,Sim,Sim,Sim,Sim,Sim,Não,3,3,2,2,2,3,3,11,11,11,Aprovado
+Gabriel Pereira,Homem,16,Urbano,3 membros ou menos,Juntos,4,3,Área da saúde,Outra profissão,Próximo de casa,Pai,1,1,0,Não,Não,Sim,Sim,Sim,Sim,Sim,Não,3,1,3,1,3,5,4,8,10,10,Aprovado
+Gabriel Pereira,Homem,15,Rural,Mais de 3 membros,Juntos,4,4,Outra profissão,Outra profissão,Próximo de casa,Pai,4,4,0,Não,Sim,Sim,Sim,Sim,Sim,Sim,Sim,1,3,5,3,5,1,6,10,13,13,Aprovado
+Gabriel Pereira,Homem,18,Urbano,Mais de 3 membros,Juntos,4,3,Professor(a),Outra profissão,Curso específico,Mãe,1,3,0,Não,Sim,Sim,Não,Sim,Sim,Sim,Sim,5,4,5,2,3,5,0,10,10,9,Reprovado
+Gabriel Pereira,Mulher,17,Urbano,Mais de 3 membros,Juntos,4,3,Área da saúde,Outra profissão,Reputação da escola,Mãe,1,3,0,Não,Sim,Sim,Sim,Sim,Sim,Sim,Sim,4,4,3,1,3,4,0,13,15,15,Aprovado
+Mousinho da Silveira,Homem,18,Urbano,3 membros ou menos,Juntos,1,1,Outra profissão,Serviços,Próximo de casa,Pai,2,1,0,Não,Não,Não,Não,Não,Sim,Sim,Sim,3,3,2,1,2,3,4,10,10,10,Aprovado
+Mousinho da Silveira,Mulher,18,Rural,3 membros ou menos,Separados,1,4,Dona de casa,Outra profissão,Curso específico,Mãe,3,2,0,Não,Não,Não,Não,Sim,Sim,Não,Sim,4,3,4,1,4,5,0,13,13,13,Aprovado
+Gabriel Pereira,Mulher,18,Rural,Mais de 3 membros,Juntos,3,1,Outra profissão,Outra profissão,Reputação da escola,Mãe,1,2,1,Não,Não,Não,Sim,Sim,Sim,Sim,Sim,5,3,3,1,1,4,16,9,8,7,Reprovado
+Gabriel Pereira,Homem,16,Urbano,3 membros ou menos,Juntos,1,1,Serviços,Outra profissão,Curso específico,Mãe,1,2,1,Não,Não,Não,Não,Sim,Sim,Não,Sim,4,4,4,1,3,5,0,14,12,12,Aprovado
+Gabriel Pereira,Mulher,15,Urbano,3 membros ou menos,Juntos,4,3,Serviços,Serviços,Reputação da escola,Pai,1,2,0,Sim,Não,Não,Sim,Sim,Sim,Sim,Sim,4,4,4,2,4,2,0,10,10,10,Aprovado
+Gabriel Pereira,Mulher,16,Urbano,Mais de 3 membros,Juntos,3,3,Outra profissão,Outra profissão,Reputação da escola,Mãe,3,2,0,Sim,Sim,Não,Sim,Sim,Sim,Não,Não,5,3,2,1,1,4,4,8,10,10,Aprovado
+Gabriel Pereira,Homem,18,Urbano,Mais de 3 membros,Juntos,2,2,Serviços,Outra profissão,Próximo de casa,Mãe,1,2,1,Não,Sim,Sim,Sim,Sim,Sim,Sim,Não,4,4,4,2,4,5,15,6,7,8,Reprovado
+Gabriel Pereira,Mulher,17,Urbano,Mais de 3 membros,Juntos,4,4,Professor(a),Professor(a),Curso específico,Mãe,2,3,0,Não,Sim,Sim,Não,Não,Sim,Sim,Sim,4,3,3,1,2,4,4,14,14,14,Aprovado
+Gabriel Pereira,Homem,20,Urbano,Mais de 3 membros,Separados,3,2,Serviços,Outra profissão,Curso específico,Outro responsável,1,1,0,Não,Não,Não,Sim,Sim,Sim,Não,Não,5,5,3,1,1,5,0,17,18,18,Aprovado
+Gabriel Pereira,Mulher,18,Urbano,Mais de 3 membros,Separados,4,4,Dona de casa,Professor(a),Curso específico,Mãe,2,2,0,Sim,Não,Não,Não,Sim,Sim,Não,Não,4,3,4,1,1,3,6,5,6,6,Reprovado
+Gabriel Pereira,Homem,16,Rural,Mais de 3 membros,Juntos,3,3,Serviços,Serviços,Reputação da escola,Mãe,1,1,0,Não,Sim,Não,Sim,Sim,Sim,Sim,Não,4,3,2,3,4,5,8,8,9,10,Aprovado
+Gabriel Pereira,Mulher,16,Urbano,Mais de 3 membros,Separados,3,1,Serviços,Outra profissão,Curso específico,Mãe,1,2,3,Não,Sim,Sim,Não,Sim,Sim,Sim,Não,2,3,3,2,2,4,5,7,7,7,Reprovado
+Gabriel Pereira,Homem,18,Urbano,Mais de 3 membros,Juntos,4,3,Professor(a),Outra profissão,Curso específico,Mãe,1,2,0,Não,Sim,Sim,Não,Não,Sim,Sim,Não,4,3,2,1,1,3,2,8,8,8,Reprovado
+Mousinho da Silveira,Homem,19,Rural,Mais de 3 membros,Juntos,1,1,Outra profissão,Outra profissão,Próximo de casa,Outro responsável,3,1,1,Não,Sim,Não,Não,Sim,Sim,Sim,Não,4,4,4,3,3,5,4,8,8,8,Reprovado
+Gabriel Pereira,Mulher,16,Urbano,Mais de 3 membros,Juntos,2,3,Serviços,Serviços,Curso específico,Mãe,1,2,0,Não,Não,Não,Não,Sim,Sim,Sim,Não,4,3,3,1,1,2,10,11,12,13,Aprovado
+Gabriel Pereira,Homem,17,Rural,3 membros ou menos,Juntos,2,1,Dona de casa,Outra profissão,Curso específico,Mãe,2,1,2,Não,Não,Não,Sim,Sim,Não,Sim,Sim,3,3,2,2,2,5,0,7,6,0,Reprovado
+Gabriel Pereira,Mulher,15,Urbano,Mais de 3 membros,Juntos,4,4,Serviços,Serviços,Reputação da escola,Pai,2,2,2,Não,Não,Sim,Não,Sim,Sim,Sim,Sim,4,4,4,2,3,5,6,7,9,8,Reprovado
+Gabriel Pereira,Mulher,19,Urbano,Mais de 3 membros,Juntos,0,1,Dona de casa,Outra profissão,Curso específico,Outro responsável,1,2,3,Não,Sim,Não,Não,Não,Não,Não,Não,3,4,2,1,1,5,2,7,8,9,Reprovado
+Gabriel Pereira,Homem,15,Urbano,Mais de 3 membros,Juntos,2,3,Outra profissão,Outra profissão,Próximo de casa,Mãe,1,3,0,Sim,Não,Sim,Não,Não,Sim,Sim,Não,5,3,2,1,2,5,4,11,10,11,Aprovado
+Gabriel Pereira,Mulher,16,Urbano,Mais de 3 membros,Juntos,4,2,Área da saúde,Serviços,Próximo de casa,Pai,1,2,0,Não,Não,Sim,Não,Sim,Sim,Sim,Sim,4,2,3,1,1,3,0,14,15,16,Aprovado
+Gabriel Pereira,Mulher,15,Rural,Mais de 3 membros,Juntos,1,1,Dona de casa,Outra profissão,Próximo de casa,Mãe,2,4,1,Sim,Sim,Sim,Sim,Sim,Sim,Sim,Não,3,1,2,1,1,1,2,7,10,10,Aprovado
+Gabriel Pereira,Homem,16,Urbano,Mais de 3 membros,Juntos,3,2,Dona de casa,Outra profissão,Reputação da escola,Mãe,2,3,0,Não,Não,Não,Sim,Sim,Sim,Sim,Sim,5,3,3,1,3,2,10,11,9,10,Aprovado
+Gabriel Pereira,Mulher,16,Urbano,Mais de 3 membros,Juntos,3,4,Dona de casa,Outra profissão,Curso específico,Mãe,1,2,0,Não,Sim,Não,Não,Sim,Sim,Sim,Não,2,4,3,1,2,3,12,5,5,5,Reprovado
+Gabriel Pereira,Homem,15,Urbano,3 membros ou menos,Juntos,4,4,Área da saúde,Serviços,Curso específico,Pai,1,1,0,Não,Sim,Sim,Sim,Sim,Sim,Sim,Não,4,3,3,1,3,5,2,14,14,14,Aprovado
+Gabriel Pereira,Mulher,17,Urbano,Mais de 3 membros,Separados,4,4,Outra profissão,Professor(a),Próximo de casa,Mãe,2,2,0,Sim,Sim,Não,Não,Sim,Sim,Não,Não,4,1,4,1,1,1,6,6,5,6,Reprovado
+Gabriel Pereira,Homem,16,Urbano,Mais de 3 membros,Juntos,2,3,Outra profissão,Outra profissão,Próximo de casa,Pai,2,1,0,Não,Não,Não,Não,Sim,Sim,Sim,Não,5,3,3,1,1,3,0,13,14,14,Aprovado
+Gabriel Pereira,Homem,15,Urbano,Mais de 3 membros,Juntos,3,4,Outra profissão,Outra profissão,Reputação da escola,Pai,1,1,0,Não,Não,Não,Não,Sim,Sim,Sim,Não,3,4,3,1,2,4,6,14,13,13,Aprovado
+Gabriel Pereira,Homem,17,Rural,Mais de 3 membros,Juntos,2,2,Serviços,Outra profissão,Curso específico,Mãe,4,1,0,Não,Sim,Não,Não,Sim,Sim,Sim,Não,4,4,5,5,5,4,8,11,10,10,Aprovado
+Gabriel Pereira,Mulher,17,Urbano,3 membros ou menos,Juntos,3,3,Outra profissão,Outra profissão,Reputação da escola,Mãe,1,2,0,Não,Sim,Não,Sim,Sim,Sim,Sim,Sim,5,3,3,2,3,1,56,9,9,8,Reprovado
+Gabriel Pereira,Mulher,18,Urbano,3 membros ou menos,Juntos,2,2,Outra profissão,Outra profissão,Próximo de casa,Outro responsável,1,2,0,Não,Não,Não,Sim,Não,Sim,Sim,Sim,4,3,3,1,1,2,0,8,8,0,Reprovado
+Gabriel Pereira,Homem,18,Urbano,Mais de 3 membros,Juntos,4,4,Outra profissão,Outra profissão,Curso específico,Mãe,1,3,0,Não,Não,Não,Sim,Sim,Sim,Sim,Não,4,3,3,2,2,3,3,9,12,11,Aprovado
+Gabriel Pereira,Mulher,17,Urbano,Mais de 3 membros,Separados,2,2,Dona de casa,Dono de casa,Próximo de casa,Pai,1,2,1,Não,Sim,Não,Não,Sim,Sim,Sim,Sim,3,3,1,1,2,4,0,9,8,0,Reprovado
+Gabriel Pereira,Homem,15,Urbano,Mais de 3 membros,Separados,4,4,Outra profissão,Serviços,Reputação da escola,Mãe,1,4,0,Não,Sim,Não,Sim,Não,Sim,Sim,Sim,1,3,3,5,5,3,4,13,13,12,Aprovado
+Gabriel Pereira,Mulher,15,Urbano,Mais de 3 membros,Juntos,1,1,Dona de casa,Outra profissão,Curso específico,Mãe,3,1,0,Não,Sim,Não,Sim,Não,Sim,Sim,Sim,4,3,3,1,2,4,0,8,0,0,Reprovado
+Gabriel Pereira,Mulher,19,Urbano,Mais de 3 membros,Juntos,2,1,Dona de casa,Outra profissão,Outro motivo,Outro responsável,3,2,0,Não,Sim,Não,Não,Sim,Não,Sim,Sim,3,4,1,1,1,2,20,14,12,13,Aprovado
+Mousinho da Silveira,Mulher,17,Urbano,3 membros ou menos,Separados,3,2,Serviços,Outra profissão,Reputação da escola,Mãe,2,2,0,Não,Não,Não,Não,Sim,Sim,Não,Sim,1,2,3,1,2,5,2,12,12,11,Aprovado
+Mousinho da Silveira,Homem,18,Urbano,Mais de 3 membros,Juntos,4,4,Professor(a),Professor(a),Próximo de casa,Pai,1,2,0,Não,Não,Sim,Sim,Não,Sim,Sim,Não,3,2,4,1,4,2,4,15,14,14,Aprovado
+Gabriel Pereira,Homem,15,Urbano,Mais de 3 membros,Juntos,4,4,Serviços,Professor(a),Curso específico,Pai,1,2,0,Não,Sim,Não,Sim,Sim,Sim,Sim,Não,4,3,3,1,1,5,2,19,18,18,Aprovado
+Gabriel Pereira,Homem,18,Urbano,Mais de 3 membros,Juntos,2,2,Outra profissão,Outra profissão,Próximo de casa,Mãe,2,2,0,Não,Sim,Sim,Não,Sim,Sim,Sim,Não,3,3,3,5,5,4,0,12,13,13,Aprovado
+Gabriel Pereira,Homem,18,Rural,Mais de 3 membros,Juntos,4,3,Professor(a),Serviços,Curso específico,Mãe,1,3,0,Não,Não,Não,Não,Sim,Sim,Sim,Sim,5,3,2,1,2,4,9,16,15,16,Aprovado
+Mousinho da Silveira,Homem,18,Rural,Mais de 3 membros,Juntos,2,1,Outra profissão,Outra profissão,Outro motivo,Mãe,2,1,0,Não,Não,Não,Sim,Não,Sim,Sim,Sim,4,4,3,1,3,5,5,7,6,7,Reprovado
+Gabriel Pereira,Mulher,15,Urbano,Mais de 3 membros,Juntos,1,1,Outra profissão,Serviços,Curso específico,Pai,1,2,0,Não,Sim,Sim,Não,Sim,Sim,Sim,Não,4,4,2,1,2,5,0,8,11,11,Aprovado
+Mousinho da Silveira,Mulher,17,Urbano,Mais de 3 membros,Juntos,2,2,Outra profissão,Dono de casa,Próximo de casa,Mãe,1,3,0,Não,Não,Não,Sim,Sim,Sim,Não,Sim,3,4,3,1,1,3,8,13,11,11,Aprovado
+Gabriel Pereira,Homem,16,Urbano,Mais de 3 membros,Juntos,3,1,Outra profissão,Outra profissão,Reputação da escola,Pai,2,4,0,Não,Sim,Sim,Não,Sim,Sim,Sim,Não,4,3,2,1,1,5,0,13,15,15,Aprovado
+Gabriel Pereira,Mulher,17,Urbano,3 membros ou menos,Juntos,4,2,Professor(a),Serviços,Reputação da escola,Mãe,1,4,0,Não,Sim,Sim,Sim,Sim,Sim,Sim,Não,4,2,3,1,1,4,6,14,12,13,Aprovado
+Gabriel Pereira,Homem,18,Urbano,Mais de 3 membros,Juntos,2,1,Outra profissão,Outra profissão,Próximo de casa,Mãe,1,2,0,Não,Não,Não,Sim,Sim,Sim,Sim,Não,5,2,4,1,2,4,8,15,14,14,Aprovado
+Gabriel Pereira,Homem,16,Rural,Mais de 3 membros,Juntos,4,3,Serviços,Outra profissão,Reputação da escola,Mãe,2,1,0,Sim,Sim,Não,Sim,Não,Sim,Sim,Não,3,3,3,1,1,4,2,11,15,15,Aprovado
+Gabriel Pereira,Homem,17,Urbano,Mais de 3 membros,Juntos,1,1,Outra profissão,Outra profissão,Reputação da escola,Pai,1,2,0,Não,Não,Sim,Não,Não,Sim,Sim,Não,4,3,3,1,2,4,2,12,10,11,Aprovado
+Mousinho da Silveira,Mulher,18,Rural,Mais de 3 membros,Juntos,4,4,Outra profissão,Professor(a),Outro motivo,Pai,3,2,0,Não,Sim,Sim,Não,Não,Sim,Sim,Sim,3,2,2,4,2,5,10,14,12,11,Aprovado
+Gabriel Pereira,Mulher,19,Rural,Mais de 3 membros,Juntos,2,3,Outra profissão,Outra profissão,Reputação da escola,Outro responsável,1,3,1,Não,Não,Não,Não,Sim,Sim,Sim,Sim,4,1,2,1,1,3,40,13,11,11,Aprovado
+Gabriel Pereira,Homem,15,Urbano,Mais de 3 membros,Juntos,2,2,Serviços,Serviços,Próximo de casa,Pai,1,4,0,Não,Sim,Sim,Sim,Sim,Sim,Sim,Não,5,5,4,1,2,5,6,16,14,15,Aprovado
+Mousinho da Silveira,Mulher,20,Urbano,Mais de 3 membros,Juntos,4,2,Área da saúde,Outra profissão,Curso específico,Outro responsável,2,3,2,Não,Sim,Sim,Não,Não,Sim,Sim,Sim,5,4,3,1,1,3,4,15,14,15,Aprovado
+Gabriel Pereira,Homem,16,Urbano,3 membros ou menos,Juntos,4,2,Professor(a),Outra profissão,Curso específico,Mãe,1,2,0,Não,Não,Não,Sim,Sim,Sim,Sim,Não,4,5,1,1,3,5,2,15,15,16,Aprovado
+Gabriel Pereira,Mulher,15,Urbano,Mais de 3 membros,Juntos,4,2,Área da saúde,Serviços,Próximo de casa,Mãe,1,3,0,Não,Sim,Sim,Sim,Sim,Sim,Sim,Sim,3,2,2,1,1,5,2,15,14,15,Aprovado
+Gabriel Pereira,Mulher,18,Urbano,Mais de 3 membros,Juntos,2,2,Dona de casa,Dono de casa,Outro motivo,Mãe,1,3,0,Não,Sim,Sim,Não,Sim,Sim,Sim,Não,4,3,3,1,2,2,5,18,18,19,Aprovado
+Gabriel Pereira,Mulher,16,Urbano,Mais de 3 membros,Juntos,1,3,Dona de casa,Serviços,Próximo de casa,Mãe,1,2,3,Não,Não,Não,Sim,Não,Sim,Sim,Sim,4,3,5,1,1,3,0,8,7,0,Reprovado
+Gabriel Pereira,Homem,16,Urbano,Mais de 3 membros,Juntos,3,3,Outra profissão,Serviços,Próximo de casa,Pai,2,1,0,Não,Não,Não,Sim,Sim,Sim,Sim,Não,5,4,2,1,1,5,0,13,14,13,Aprovado
+Gabriel Pereira,Homem,16,Urbano,Mais de 3 membros,Juntos,4,3,Área da saúde,Serviços,Reputação da escola,Mãe,1,4,0,Não,Não,Não,Sim,Sim,Sim,Sim,Não,4,2,2,1,1,2,4,19,19,20,Aprovado
+Gabriel Pereira,Homem,18,Urbano,Mais de 3 membros,Juntos,2,1,Serviços,Serviços,Reputação da escola,Mãe,1,3,0,Não,Não,Sim,Sim,Sim,Sim,Sim,Não,4,2,4,1,3,2,6,15,14,14,Aprovado
+Mousinho da Silveira,Homem,19,Rural,Mais de 3 membros,Juntos,1,1,Outra profissão,Serviços,Outro motivo,Mãe,2,1,1,Não,Não,Não,Não,Sim,Sim,Não,Não,4,3,2,1,3,5,0,6,5,0,Reprovado
+Gabriel Pereira,Homem,18,Urbano,Mais de 3 membros,Juntos,3,2,Serviços,Outra profissão,Curso específico,Mãe,2,1,1,Não,Não,Não,Não,Sim,Não,Sim,Não,4,4,5,2,4,5,0,6,8,8,Reprovado
+Gabriel Pereira,Mulher,15,Rural,Mais de 3 membros,Juntos,3,3,Serviços,Serviços,Reputação da escola,Outro responsável,2,3,2,Não,Sim,Sim,Sim,Sim,Sim,Sim,Sim,4,2,1,2,3,3,8,10,10,10,Aprovado
+Gabriel Pereira,Homem,15,Rural,Mais de 3 membros,Juntos,3,4,Dona de casa,Professor(a),Curso específico,Mãe,4,2,0,Não,Sim,Não,Não,Sim,Sim,Não,Sim,5,3,3,1,1,5,0,9,0,0,Reprovado
+Gabriel Pereira,Homem,16,Urbano,Mais de 3 membros,Juntos,4,4,Serviços,Serviços,Curso específico,Mãe,1,1,0,Não,Não,Não,Sim,Sim,Sim,Sim,Não,5,3,2,1,2,5,0,13,12,12,Aprovado
+Gabriel Pereira,Homem,16,Urbano,Mais de 3 membros,Juntos,0,2,Outra profissão,Outra profissão,Outro motivo,Mãe,1,1,0,Não,Não,Sim,Não,Não,Sim,Sim,Não,4,3,2,2,4,5,0,13,15,15,Aprovado
+Gabriel Pereira,Homem,15,Urbano,Mais de 3 membros,Juntos,4,0,Professor(a),Outra profissão,Curso específico,Mãe,2,4,0,Não,Não,Não,Sim,Sim,Sim,Sim,Não,3,4,3,1,1,1,8,11,11,10,Aprovado
+Gabriel Pereira,Homem,15,Urbano,Mais de 3 membros,Juntos,4,2,Área da saúde,Serviços,Outro motivo,Mãe,1,1,0,Não,Não,Sim,Não,Sim,Sim,Sim,Não,2,2,4,2,4,1,4,15,16,15,Aprovado
+Gabriel Pereira,Homem,15,Urbano,Mais de 3 membros,Juntos,4,4,Outra profissão,Professor(a),Reputação da escola,Pai,2,2,0,Não,Sim,Não,Sim,Sim,Sim,Não,Não,4,4,3,1,1,2,2,11,13,14,Aprovado
+Gabriel Pereira,Mulher,15,Urbano,Mais de 3 membros,Juntos,4,4,Serviços,Dono de casa,Curso específico,Mãe,1,3,0,Não,Sim,Não,Sim,Sim,Sim,Sim,Sim,4,3,3,1,1,5,0,11,0,0,Reprovado
+Gabriel Pereira,Homem,18,Rural,Mais de 3 membros,Juntos,2,2,Serviços,Outra profissão,Reputação da escola,Mãe,1,1,2,Não,Sim,Não,Sim,Sim,Sim,Sim,Não,3,3,3,1,2,4,0,7,4,0,Reprovado
+Gabriel Pereira,Homem,17,Urbano,Mais de 3 membros,Juntos,4,3,Outra profissão,Outra profissão,Curso específico,Mãe,1,2,0,Não,Sim,Não,Sim,Sim,Sim,Sim,Sim,5,2,3,1,1,2,4,10,10,11,Aprovado
+Gabriel Pereira,Mulher,15,Urbano,Mais de 3 membros,Juntos,2,1,Serviços,Outra profissão,Reputação da escola,Pai,3,3,0,Não,Sim,Não,Sim,Sim,Sim,Sim,Não,5,2,2,1,1,4,4,10,12,12,Aprovado
+Mousinho da Silveira,Homem,18,Rural,3 membros ou menos,Juntos,3,2,Serviços,Outra profissão,Curso específico,Mãe,3,1,0,Não,Não,Não,Não,Não,Sim,Sim,Não,4,4,1,3,4,5,0,11,12,10,Aprovado
+Gabriel Pereira,Mulher,17,Urbano,Mais de 3 membros,Juntos,3,3,Outra profissão,Outra profissão,Próximo de casa,Mãe,1,3,0,Não,Não,Não,Sim,Não,Sim,Não,Não,3,2,3,1,1,4,4,10,9,9,Reprovado
+Gabriel Pereira,Mulher,16,Urbano,Mais de 3 membros,Juntos,4,3,Outra profissão,Dono de casa,Curso específico,Mãe,1,3,0,Sim,Sim,Sim,Não,Sim,Sim,Sim,Não,5,3,5,1,1,3,0,7,9,8,Reprovado
+Gabriel Pereira,Mulher,18,Rural,Mais de 3 membros,Juntos,1,1,Dona de casa,Outra profissão,Curso específico,Mãe,3,1,3,Não,Sim,Não,Sim,Não,Sim,Não,Não,5,2,5,1,5,4,6,9,8,10,Aprovado
+Gabriel Pereira,Homem,17,Urbano,Mais de 3 membros,Juntos,4,4,Serviços,Professor(a),Próximo de casa,Mãe,1,1,0,Não,Não,Não,Não,Sim,Sim,Sim,Não,5,2,3,1,2,5,4,17,15,16,Aprovado
+Gabriel Pereira,Mulher,17,Urbano,Mais de 3 membros,Juntos,4,2,Outra profissão,Outra profissão,Reputação da escola,Mãe,2,3,0,Não,Sim,Sim,Não,Sim,Sim,Sim,Não,4,3,3,1,1,3,0,15,12,14,Aprovado
+Gabriel Pereira,Homem,15,Urbano,3 membros ou menos,Separados,2,1,Serviços,Outra profissão,Curso específico,Mãe,4,1,3,Não,Não,Não,Não,Sim,Sim,Sim,Não,4,5,5,2,5,5,0,8,9,10,Aprovado
+Gabriel Pereira,Homem,16,Rural,3 membros ou menos,Juntos,3,3,Professor(a),Outra profissão,Próximo de casa,Pai,3,1,0,Não,Sim,Sim,Sim,Sim,Sim,Sim,Não,3,3,4,3,5,3,8,9,9,10,Aprovado
+Gabriel Pereira,Mulher,18,Urbano,3 membros ou menos,Juntos,3,3,Serviços,Serviços,Próximo de casa,Mãe,1,4,0,Não,Sim,Não,Não,Sim,Sim,Sim,Não,5,3,3,1,1,1,7,16,15,17,Aprovado
+Gabriel Pereira,Homem,17,Urbano,Mais de 3 membros,Juntos,3,3,Área da saúde,Outra profissão,Próximo de casa,Mãe,1,1,0,Não,Sim,Sim,Não,Sim,Sim,Sim,Não,4,4,3,1,3,5,4,14,12,11,Aprovado
+Gabriel Pereira,Mulher,16,Rural,Mais de 3 membros,Juntos,4,4,Área da saúde,Professor(a),Outro motivo,Mãe,1,2,0,Não,Sim,Não,Sim,Sim,Sim,Não,Não,2,4,4,2,3,4,6,10,11,11,Aprovado
+Gabriel Pereira,Mulher,17,Urbano,Mais de 3 membros,Juntos,4,4,Professor(a),Serviços,Curso específico,Mãe,1,3,0,Não,Sim,Sim,Sim,Sim,Sim,Sim,Não,5,4,4,1,3,4,7,10,9,9,Reprovado
+Gabriel Pereira,Homem,15,Urbano,Mais de 3 membros,Juntos,4,3,Professor(a),Outra profissão,Próximo de casa,Mãe,1,2,0,Não,Sim,Sim,Sim,Sim,Sim,Sim,Não,4,3,3,2,3,5,6,9,9,10,Aprovado
+Gabriel Pereira,Mulher,16,Rural,Mais de 3 membros,Juntos,3,3,Serviços,Outra profissão,Reputação da escola,Pai,1,3,1,Sim,Sim,Não,Sim,Sim,Sim,Sim,Não,4,1,2,1,1,2,0,7,10,10,Aprovado
+Gabriel Pereira,Mulher,17,Urbano,Mais de 3 membros,Juntos,2,2,Outra profissão,Outra profissão,Curso específico,Mãe,1,2,0,Não,Sim,Não,Não,Não,Sim,Sim,Não,5,4,5,1,2,5,4,10,9,11,Aprovado
