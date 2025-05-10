@@ -78,14 +78,6 @@ Além dos módulos Python, o projeto é acompanhado por notebooks organizados po
 | `classificacao_matematica.ipynb`| Modelagem preditiva para prever aprovação em Matemática, com análise de overfitting e comparação de modelos. |
 
 
-## Como Usar
-
-1. Execute `pre_modelagem.py` para carregar e preparar os dados.
-2. Use `eda_functions.py` para a análise exploratória.
-3. Aplique `feature_selection.py` para identificar atributos relevantes.
-4. Utilize `modelagem.py` para avaliar os modelos de classificação.
-5. Os gráficos e exportações LaTeX são gerados automaticamente.
-
 ## Dependências Principais
 
 - Python 3.9+
