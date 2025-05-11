@@ -93,9 +93,9 @@ from IPython.display import display
 def aplicar_estilo_visual(paleta, retornar_cmap=False, n=None):
     """Obtém ou gera uma lista de cores ou um colormap a partir de uma paleta.
 
-    Recupera cores de paletas predefinidas ('azul', 'verde', 'blue_to_green')
-    ou usa uma lista de cores fornecida. Pode retornar um colormap Matplotlib
-    ou uma lista interpolada de 'n' cores.
+    Recupera cores de paletas predefinidas ('azul', 'verde', 'blue_to_green',
+    'vermelho'e 'laranja') ou usa uma lista de cores fornecida. 
+    Pode retornar um colormap Matplotlib ou uma lista interpolada de 'n' cores.
 
     Args:
         paleta (Union[str, List[str]]): Nome da paleta predefinida
@@ -117,16 +117,30 @@ def aplicar_estilo_visual(paleta, retornar_cmap=False, n=None):
             'auxiliar': ['#d9ecf2']
         },
         'verde': {
-            'cores': ['#9aafa0', '#639374', '#3b7850', '#225639', '#153024'],
-            'auxiliar': ['#EAF6EE']
-
+        'cores': ['#9aafa0', '#639374', '#3b7850', '#225639', '#153024'],
+        'auxiliar': ['#EAF6EE']
         },
         'blue_to_green': {
-            'cores': ["#1B4F72", "#2E86C1", "#3498DB", "#5DADE2", "#AED6F1",
-                      "#F5FAF8", "#D5F5E3", "#A9DFBF", "#52BE80", "#239B56", "#196F3D"],
+            'cores': [
+                '#d7e2e2', '#b1c6c5', '#8baaaa', '#65908f',
+                '#3e7575', '#0a5c5c', '#074040'
+            ]
+
+        ,
             'auxiliar': []
         }
+        ,
+        'vermelho': {
+            'cores': ['#fca082', '#fb7c5c', '#a81434'],  # o último é o extraído da matriz
+            'auxiliar': ['#fde0d9']
+        },
+        'laranja': {
+            'cores': ['#fee3c8', '#fdc692', '#d9711c'],  # o último é o extraído da matriz
+            'auxiliar': ['#fff4e5']
+        }
     }
+
+
 
     # Determina as cores base e auxiliares
     if isinstance(paleta, str) and paleta in paletas_predefinidas:
@@ -142,7 +156,10 @@ def aplicar_estilo_visual(paleta, retornar_cmap=False, n=None):
 
     # Retorna colormap se solicitado
     if retornar_cmap:
-        return LinearSegmentedColormap.from_list("custom_cmap", cor_auxiliar + cores_base)
+        if paleta == paletas_predefinidas['blue_to_green']:
+            return LinearSegmentedColormap.from_list("custom_cmap", cores_base[len(paletas_predefinidas['blue_to_green'])] + '#65908f')
+        else:
+            return LinearSegmentedColormap.from_list("custom_cmap", cor_auxiliar + cores_base)
 
     # Retorna cores base se 'n' não for especificado
     if n is None:
@@ -416,7 +433,7 @@ def formatar_titulo(texto):
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
-# Seção: Boxplots, ou Boxplots e Countplots Combinados
+# Seção: Boxplots,  ou Boxplots e Countplots Combinados
 # ------------------------------------------------------------------------------
 
 def plot_boxplot_countplot(df, x, y, hue=None, materia=None, paleta='blue_to_green', salvar=False, nome_arquivo='box_count'):
@@ -456,14 +473,14 @@ def plot_boxplot_countplot(df, x, y, hue=None, materia=None, paleta='blue_to_gre
                 capprops={'color': 'black', 'linewidth': 0.8},
                 medianprops={'color': 'black', 'linewidth': 0.8})
 
-    axes[0].set_title(f"Distribuição de {formatar_titulo(y)} por categoria",fontsize=8)
+    axes[0].set_title(f"Distribuição de {formatar_titulo(y)}\npor categoria",fontsize=8)
     axes[0].set_xlabel(quebrar_rotulo(formatar_titulo(x))) # Aplica quebra e formatação
     axes[0].set_ylabel(formatar_titulo(y))
 
 
     # --- Subplot 2: Countplot ---
     sns.countplot(data=df, x=x, hue=hue, ax=axes[1], palette=cores)
-    axes[1].set_title(f"Frequência de Aprovação por categoria",fontsize=8)
+    axes[1].set_title(f"Frequência de Aprovação \npor categoria",fontsize=8)
     axes[1].set_xlabel(quebrar_rotulo(formatar_titulo(x))) # Aplica quebra e formatação
     axes[1].set_ylabel("Contagem")
     if hue:
@@ -483,7 +500,7 @@ def plot_boxplot_countplot(df, x, y, hue=None, materia=None, paleta='blue_to_gre
     # --- Título e Informações da Figura ---
     titulo_fig = f"Análise de {formatar_titulo(y)} vs {formatar_titulo(x)}"
     if hue:
-        titulo_fig += f" segmentado por {formatar_titulo(hue)}"
+        titulo_fig += f"\n segmentado por {formatar_titulo(hue)}"
     fig.suptitle(titulo_fig, fontsize=11, y=0.95)
 
     # Adiciona texto da disciplina se fornecido
@@ -593,65 +610,60 @@ def plot_boxplot_boxplot(df, x, y1, y2, paleta, hue=None, materia=None, salvar=F
     plt.show()
     return fig, axes
 
+
+
 # ------------------------------------------------------------------------------
 # Seção: Visualização de Variáveis Quantitativas
 # ------------------------------------------------------------------------------
 
 def plot_distribuicao_quantitativas(df, colunas, modo='box', mostrar_media=False, mostrar_mediana=False,
-                                     titulo=None, paleta='azul', materia=None,show_figure = True,salvar = False):
-    """Visualiza múltiplas variáveis quantitativas com boxplots ou histogramas.
+                                     titulo=None, sub_titulo=None, paleta='azul', materia=None,
+                                     show_figure=True, salvar=False):
+    """
+    Visualiza múltiplas variáveis quantitativas com boxplots ou histogramas.
 
     Gera subplots lado a lado para cada coluna quantitativa especificada,
-    usando boxplots (`modo='box'`) ou histogramas (`modo='hist'`).
+    usando boxplots (`modo='box'`) ou histogramas (`modo='hist`).
 
     Args:
         df (pd.DataFrame): Base de dados.
         colunas (List[str]): Lista de colunas numéricas para análise.
         modo (str, optional): 'box' para boxplots ou 'hist' para histogramas.
-            Default 'box'.
-        mostrar_media (bool, optional): Se True e `modo='box'`, anota a média
-            no boxplot. Default False.
-        mostrar_mediana (bool, optional): Se True e `modo='box'`, desenha linha
-            tracejada da mediana. Default False.
-        titulo (Optional[str], optional): Título do gráfico. Se None, um título
-            automático é gerado. Default None.
-        paleta (str, optional): Paleta de cores base. Default 'azul'.
-        materia (Optional[str], optional): Nome da disciplina (para título).
-            Default None.
-        show_figure (bool, optional): escolhe se exibe gráfico. Default True.
-        salvar (bool, optional): Se True, salva a figura. Default False.
-  
+        mostrar_media (bool): Se True, anota a média no boxplot.
+        mostrar_mediana (bool): Se True, desenha linha da mediana no boxplot.
+        titulo (str, optional): Título principal do gráfico.
+        sub_titulo (str, optional): Subtítulo (exibido abaixo do título principal).
+        paleta (str): Nome da paleta de cores ('azul', 'vermelho', 'laranja', etc.).
+        materia (str, optional): Nome da disciplina (usado no título).
+        show_figure (bool): Se True, exibe a figura.
+        salvar (bool): Se True, salva a figura em arquivo.
+
     Returns:
-        Tuple[plt.Figure, np.ndarray[plt.Axes]]: Tupla (fig, axes).
+        Tuple[plt.Figure, List[plt.Axes]]: Figura e lista de eixos.
     """
+
     n_plots = len(colunas)
     if n_plots == 0:
         print("Nenhuma coluna fornecida para plotar.")
-        return None, None # Retorna None se não houver colunas
+        return None, None
 
-    # Determina cores e cria figura
-    # Ajusta lógica de cores baseada na paleta
     cor_offset = 0
     n_cores_total = n_plots
     if paleta != 'blue_to_green':
-        cor_offset = 2 # Pula cores mais claras em paletas direcionais?
+        cor_offset = 2
         n_cores_total += cor_offset
-    cores = aplicar_estilo_visual(paleta, n=n_cores_total)
-    
-    # Cria figura com 1 linha e n_plots colunas
-    fig, axes, _ = padronizar_figura(1, n_plots) 
 
-    # Garante que 'axes' seja sempre um array, mesmo para n_plots=1
+    cores = aplicar_estilo_visual(paleta, n=n_cores_total)
+
+    fig, axes, _ = padronizar_figura(1, n_plots)
     if n_plots == 1:
         axes = [axes]
 
-    # Itera sobre colunas e eixos para criar os plots
     for i, col in enumerate(colunas):
         ax = axes[i]
-        cor_atual = cores[i + cor_offset] # Seleciona cor para o plot atual
+        cor_atual = cores[i + cor_offset]
 
         if modo == 'box':
-            # Cria Boxplot
             sns.boxplot(data=df, y=col, ax=ax, color=cor_atual,
                         linewidth=0.8,
                         boxprops={'edgecolor': 'black', 'linewidth': 0.8},
@@ -659,49 +671,46 @@ def plot_distribuicao_quantitativas(df, colunas, modo='box', mostrar_media=False
                         capprops={'color': 'black', 'linewidth': 0.8},
                         medianprops={'color': 'black', 'linewidth': 0.8})
 
-            # Adiciona anotação da média se solicitado
             if mostrar_media:
                 media = df[col].mean()
                 ax.annotate(f"{media:.2f}", xy=(0, media), xytext=(0.1, media),
-                            textcoords='data', ha='left', va='center', # Ajuste de alinhamento
+                            textcoords='data', ha='left', va='center',
                             bbox=dict(boxstyle="round,pad=0.3", fc="lightgray", ec="black", lw=0.5),
                             fontsize=7)
 
-            # Adiciona linha da mediana se solicitado
             if mostrar_mediana:
                 mediana = df[col].median()
                 ax.axhline(mediana, linestyle='--', color='gray', linewidth=0.8)
 
-            ax.set_xlabel("") # Remove rótulo do eixo x
+            ax.set_xlabel("")
             ax.set_ylabel(formatar_titulo(col))
 
         elif modo == 'hist':
-            # Cria Histograma
-            ymax_hist = df.shape[0] / 3.33 # Limite y heurístico
+            ymax_hist = df.shape[0] / 3.33
             sns.histplot(data=df, x=col, kde=True, ax=ax, color=cor_atual, bins=20)
             ax.set_xlabel(formatar_titulo(col))
             ax.set_ylabel("Frequência")
-            ax.set_ylim(0, ymax_hist) # Aplica limite y
+            ax.set_ylim(0, ymax_hist)
 
-    # Define título automático se não fornecido
     if titulo is None:
         if all('nota' in c for c in colunas):
             titulo = "Distribuição das Notas"
         elif all('falta' in c for c in colunas):
             titulo = "Distribuição das Faltas"
         elif 'idade' in colunas:
-            titulo = "Distribuição de Idade e Faltas" # Título um pouco específico demais
+            titulo = "Distribuição de Idade e Faltas"
         else:
             titulo = "Distribuições Quantitativas"
 
-    # Adiciona matéria ao título se fornecida
     if materia:
         titulo += f" - {formatar_titulo(materia)}"
 
-    fig.suptitle(titulo)
+    fig.suptitle(titulo, fontsize=11, fontweight='bold')
+    if sub_titulo:
+        fig.text(0.5, 0.93, sub_titulo, ha='center', fontsize=9)
+
     fig.tight_layout()
-    
-    # Salva figura se solicitado
+
     if salvar:
         nome_arquivo_final = f"{titulo_para_snake_case(titulo)}_{modo}"
         salvar_figura(nome_arquivo_final)
@@ -710,6 +719,7 @@ def plot_distribuicao_quantitativas(df, colunas, modo='box', mostrar_media=False
         plt.show()
 
     return fig, axes
+
 
 # ------------------------------------------------------------------------------
 # Seção: Mapas de Calor (Heatmaps)
@@ -776,17 +786,22 @@ def custom_heatmap(matriz_corr, cores, titulo, n_arq=None, disciplina=None, salv
 # Seção: Análise de Desempenho por Categoria
 # ------------------------------------------------------------------------------
 
+
+
+
+
 def selecao_impacto_variaveis_categoricas(df, variaveis_categoricas,
                                           paleta = 'azul',
                                           salvar=True,
                                           materia=None,
-                                          coluna_avaliada='nota_final'):
+                                          coluna_avaliada='nota_final',
+                                          plot_moderado=False):
     """Avalia e plota impacto de variáveis categóricas no desempenho.
 
     Analisa variáveis categóricas com base no "gap" de desempenho médio
     na `coluna_avaliada` entre suas categorias e no desequilíbrio da
     distribuição das categorias. Plota boxplots/countplots para variáveis
-    consideradas de "impacto fraco" ou "impacto forte" segundo critérios
+    consideradas de "impacto forte" segundo critérios
     heurísticos internos.
 
     A lógica difere se `materia` é None (compara POR vs MAT) ou especificada.
@@ -803,6 +818,8 @@ def selecao_impacto_variaveis_categoricas(df, variaveis_categoricas,
         coluna_avaliada (str, optional): Nome base da coluna de desempenho a
             ser avaliada (e.g., 'nota_final'). Sufixos _por/_mat são usados
             internamente se `materia=None`. Default 'nota_final'.
+        plot_moderado (bool, optional): Se True, plota gráficos de impacto
+            moderado. Default True.
 
     Returns:
         None: A função gera e exibe/salva gráficos, não retorna valores.
@@ -813,7 +830,7 @@ def selecao_impacto_variaveis_categoricas(df, variaveis_categoricas,
         - A lógica dupla baseada em `materia` pode ser complexa.
     """
 
-    # --- Cenário 1: Comparação POR vs MAT (materia is None) ---
+    #  Comparação POR vs MAT (materia is None) ---
     if materia is None:
         gap_min = 1.0 # Limiar mínimo para diferença média entre POR e MAT
         frequencia_dominante_max = 70.0 # Limiar máximo para % da categoria mais frequente
@@ -855,7 +872,7 @@ def selecao_impacto_variaveis_categoricas(df, variaveis_categoricas,
                                      nome_arquivo=nome_do_arquivo,
                                      salvar=salvar)
 
-    # --- Cenário 2: Análise para uma Matéria Específica ---
+    #  Análise para uma Matéria Específica ---
     else:
         # Calcula desvio padrão da nota na matéria específica para definir limiares
         try:
@@ -899,15 +916,6 @@ def selecao_impacto_variaveis_categoricas(df, variaveis_categoricas,
             if desequilibrio <= limiar_desequilibrio and gap_media <= limite_gap_fraco:
                 print(f"[FRACO] {col} → equilíbrio: {desequilibrio:.2f} | gap: {gap_media:.2f}")
                 nome_do_arquivo = f'{titulo_para_snake_case(col)}_impacto_fraco'
-                # Plota boxplot + countplot (segmentado por aprovação)
-                plot_boxplot_countplot(df,
-                                       x = col,
-                                       materia=materia,
-                                       paleta=paleta,
-                                       y=coluna_avaliada,
-                                       hue='aprovacao', # Usa 'aprovacao' como hue
-                                       nome_arquivo=nome_do_arquivo,
-                                       salvar=salvar)
 
             # Critério de impacto FORTE: Desequilibrado E Gap grande
             elif desequilibrio >= limiar_desequilibrio and gap_media >= limite_gap_forte:
@@ -922,7 +930,130 @@ def selecao_impacto_variaveis_categoricas(df, variaveis_categoricas,
                                        hue='aprovacao', # Usa 'aprovacao' como hue
                                        nome_arquivo= nome_do_arquivo,
                                        salvar = salvar)
+            
+            # Critério de impacto MODERADO: Desequilibrado E Gap moderado
+            elif limite_gap_fraco < gap_media < limite_gap_forte:
+                print(f"[MODERADO] {col} → desequilíbrio: {desequilibrio:.2f} | gap: {gap_media:.2f}")
+                nome_do_arquivo = f'{titulo_para_snake_case(col)}_impacto_moderado'
+                # Plota boxplot + countplot (segmentado por aprovação)
+                if plot_moderado:
+                    plot_boxplot_countplot(df,
+                                        x = col,
+                                        materia=materia,
+                                        y=coluna_avaliada,
+                                        paleta=paleta,
+                                        hue='aprovacao', # Usa 'aprovacao' como hue
+                                        nome_arquivo= nome_do_arquivo,
+                                        salvar = salvar)
+
+
+      
+    
             # Nota: Variáveis que não se encaixam em nenhum critério não são plotadas.
+
+
+
+
+#opção alternativa para reduzir o número de gráficos
+
+def diagnostico_impacto_variaveis_categoricas(df, variaveis_categoricas,
+                                               materia=None,
+                                               coluna_avaliada='nota_final',
+                                               verbose=True):
+    """
+    Avalia o impacto de variáveis categóricas no desempenho sem gerar gráficos.
+    
+    Retorna um DataFrame com o gap de desempenho, desequilíbrio e rótulo de impacto
+    (fraco, moderado, forte) para cada variável categórica, com base em critérios
+    heurísticos internos.
+    
+    Args:
+        df (pd.DataFrame): Base de dados.
+        variaveis_categoricas (List[str]): Lista de colunas categóricas.
+        materia (str or None): 'portugues', 'matematica' ou None para comparação POR x MAT.
+        coluna_avaliada (str): Nome base da variável de desempenho.
+        verbose (bool): Se True, imprime os diagnósticos.
+
+    Returns:
+        pd.DataFrame: Diagnóstico por variável categórica.
+    """
+    resultados = []
+
+    if materia is None:
+        gap_min = 1.0
+        freq_dom_max = 70.0
+
+        for col in variaveis_categoricas:
+            if df[col].nunique() <= 1:
+                continue
+            try:
+                medias_por = df.groupby(col)[f'{coluna_avaliada}_por'].mean()
+                medias_mat = df.groupby(col)[f'{coluna_avaliada}_mat'].mean()
+            except KeyError:
+                continue
+
+            gap = abs(medias_por - medias_mat).max()
+            freq_dom = df[col].value_counts(normalize=True).max() * 100
+
+            impacto = 'forte' if (gap >= gap_min and freq_dom <= freq_dom_max) else 'nenhum'
+
+            if verbose and impacto == 'forte':
+                print(f"[POR/MAT FORTE] {col} → gap: {gap:.2f} | freq_dom: {freq_dom:.1f}%")
+
+            resultados.append({
+                'variavel': col,
+                'tipo_analise': 'comparacao_por_mat',
+                'gap': gap,
+                'freq_dominante(%)': freq_dom,
+                'impacto': impacto
+            })
+
+    else:
+        try:
+            dp = df[coluna_avaliada].std()
+        except KeyError:
+            print(f"Aviso: Coluna '{coluna_avaliada}' não encontrada.")
+            return pd.DataFrame()
+
+        limite_gap_fraco = 0.3 * dp
+        limite_gap_forte = 0.9 * dp
+
+        for col in variaveis_categoricas:
+            n_cat = df[col].nunique()
+            if n_cat <= 1:
+                continue
+
+            limiar_deseq = 0.75 if n_cat == 2 else 0.6 if n_cat <= 4 else 0.5
+            desequilibrio = df[col].value_counts(normalize=True).max()
+
+            try:
+                medias = df.groupby(col)[coluna_avaliada].mean()
+                gap = medias.max() - medias.min()
+            except:
+                continue
+
+            if desequilibrio <= limiar_deseq and gap <= limite_gap_fraco:
+                impacto = 'fraco'
+            elif desequilibrio >= limiar_deseq and gap >= limite_gap_forte:
+                impacto = 'forte'
+            else:
+                impacto = 'moderado'
+
+            if verbose:
+                print(f"[{impacto.upper()}] {col} → desequilíbrio: {desequilibrio:.2f} | gap: {gap:.2f}")
+
+            resultados.append({
+                'variavel': col,
+                'tipo_analise': f'analise_{materia}',
+                'gap': gap,
+                'desequilibrio': desequilibrio,
+                'impacto': impacto
+            })
+
+    return pd.DataFrame(resultados).sort_values(by='gap', ascending=False).reset_index(drop=True)
+
+
+
 
 # ------------------------------------------------------------------------------
 # Seção: Gráficos Comparativos e de Dispersão
@@ -1533,3 +1664,29 @@ def plot_top_diferencas_extremos(df_diferencas, materia, q1_lim, q3_lim, n_baixo
 # ==============================================================================
 
 
+def gerar_resumo_categoricas(df, variaveis, target='aprovacao'):
+    """
+    Gera tabelas de resumo para variáveis categóricas:
+    - Frequência absoluta (Total)
+    - Número de aprovados (1)
+    - Taxa de aprovação (%)
+
+    Args:
+        df (pd.DataFrame): Base de dados.
+        variaveis (list): Lista de nomes de colunas categóricas.
+        target (str): Nome da variável-alvo binária (default = 'aprovacao').
+
+    Returns:
+        dict: Dicionário com uma tabela (DataFrame) por variável.
+    """
+    resultados = {}
+
+    for var in variaveis:
+        tabela = df.groupby(var)[target].agg(
+            Total='count',
+            Aprovados=lambda x: (x == 1).sum(),
+            Taxa_Aprovacao=lambda x: round((x == 1).mean() * 100, 2)
+        ).reset_index()
+        resultados[var] = tabela
+
+    return resultados
