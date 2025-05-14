@@ -48,7 +48,7 @@ from sklearn.metrics import (
 )
 
 # Importações explícitas dos outros módulos (substituindo import *)
-from eda_functions import aplicar_estilo_visual, formatar_titulo # Adicionado formatar_titulo
+from eda_functions import aplicar_estilo_visual, formatar_titulo
 # Assume que pre_modelagem.py contém balancear_dados
 from pre_modelagem import balancear_dados
 # Assume que documentar_resultados.py contém exportar_df_para_latex e salvar_figura
@@ -61,7 +61,7 @@ from IPython.display import display # Usado para exibir DataFrames em notebooks
 # ==============================================================================
 
 def avaliar_classificadores_binarios_otimizados(
-    X, y, classificadores,testsize=0.3, param_spaces=None,
+    X_train, y_train,X_test,y_test, classificadores, param_spaces=None,
     usar_balanceamento=False, materia='portugues',
     salvar = True
 ):
@@ -77,9 +77,9 @@ def avaliar_classificadores_binarios_otimizados(
     6. Se a otimização foi realizada, plota curvas ROC e Precision-Recall
        comparando o modelo base e o otimizado.
 
-    Args:
-        X (pd.DataFrame): DataFrame de features.
-        y (Union[pd.Series, np.ndarray]): Array ou Series do alvo binário.
+    Args:    
+        X_train, y_train (DataFrame, Series): Conjunto de treino.
+        X_test, y_test (DataFrame, Series): Conjunto de teste.
         classificadores (Dict[str, Any]): Dicionário {nome_modelo: instancia_modelo_base}.
         param_spaces (Optional[Dict[str, Dict[str, List[Any]]]], optional):
             Dicionário {nome_modelo: grid_hiperparametros} para GridSearchCV.
@@ -114,11 +114,6 @@ def avaliar_classificadores_binarios_otimizados(
     }
     # Cor 0 para Sem Otimização, Cor 1 para Com Otimização
     cor_0, cor_1 = cores_map.get(materia, ['#A9A9A9', '#464646']) # Cinza claro, Cinza escuro como default
-
-    # Divide dados em treino e teste estratificado
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=testsize, stratify=y, random_state=42
-    )
 
     # Aplica balanceamento ao treino se solicitado
     if usar_balanceamento:
@@ -193,7 +188,7 @@ def avaliar_classificadores_binarios_otimizados(
             sem_metrics_cv = {'Modelo': sem_metrics_test['Modelo']}
             for m_nome, scorer in scorers.items():
                 try:
-                    cv_score = cross_val_score(modelo, X, y, cv=cv, scoring=scorer, n_jobs=-1).mean()
+                    cv_score = cross_val_score(modelo, X_train, y_train, cv=cv, scoring=scorer, n_jobs=-1).mean()
                     sem_metrics_cv[f'Validação Cruzada ({m_nome})'] = round(cv_score, 3)
                 except Exception as e_cv:
                     print(f"    Aviso (CV {m_nome}, Sem Otim): Falha ao calcular CV para {nome_modelo}. Erro: {e_cv}")
@@ -267,7 +262,7 @@ def avaliar_classificadores_binarios_otimizados(
                 com_metrics_cv = {'Modelo': com_metrics_test['Modelo']}
                 for m_nome, scorer in scorers.items():
                      try:
-                         cv_score_opt = cross_val_score(best, X, y, cv=cv, scoring=scorer, n_jobs=-1).mean()
+                         cv_score_opt = cross_val_score(best, X_train, y_train, cv=cv, scoring=scorer, n_jobs=-1).mean()
                          com_metrics_cv[f'Validação Cruzada ({m_nome})'] = round(cv_score_opt, 3)
                      except Exception as e_cv_opt:
                          print(f"    Aviso (CV {m_nome}, Com Otim): Falha ao calcular CV para {nome_modelo} otimizado. Erro: {e_cv_opt}")

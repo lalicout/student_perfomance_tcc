@@ -78,7 +78,7 @@ from matplotlib.colors import LinearSegmentedColormap, to_hex
 import statsmodels.api as sm
 from IPython.display import display
 
-from documentar_resultados import salvar_figura
+from modulos.documentar_resultados import salvar_figura
 
 from IPython.display import display
 

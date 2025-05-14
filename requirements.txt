@@ -1,6 +1,6 @@
-# Bibliotecas padrão para análise de dados e visualização
+# Pacotes principais para análise de dados e visualização
 pandas==1.3.5
-numpy==1.21.6
+numpy==1.22.4
 seaborn==0.11.2
 matplotlib==3.5.3
 
@@ -9,9 +9,7 @@ scikit-learn==1.3.1
 imbalanced-learn==0.9.1
 scipy==1.7.3
 
-# Bibliotecas para otimização e buscas
+# Bibliotecas para otimização e estatística
 scikit-optimize==0.9.0
 statsmodels==0.13.5
-
-
 
