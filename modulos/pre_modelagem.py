@@ -141,6 +141,131 @@ def importar_base(materia, caminho_completo=None):
 # ================== SEÇÃO: PREPARAÇÃO PARA MODELAGEM ==========================
 # ==============================================================================
 
+
+
+def preparar_treino_e_teste(
+    df_train,
+    df_test,
+    target='aprovacao',
+    drop_notas=True,
+    scaling=True
+):
+    """
+    Prepara os conjuntos de treino e teste para modelagem preditiva.
+    Inclui codificação, imputação, escalonamento e separação em X/y.
+
+    Args:
+        df_train (pd.DataFrame): Conjunto de treino original.
+        df_test (pd.DataFrame): Conjunto de teste original.
+        target (str): Nome da variável alvo. Default 'aprovacao'.
+        drop_notas (bool): Se True, remove colunas nota1, nota2, nota_final. Default True.
+        scaling (bool): Se True, aplica Imputer + StandardScaler nas colunas numéricas. Default True.
+
+    Returns:
+        Tuple: (X_train, X_test, y_train, y_test, scaler, imputer)
+    """
+
+    # Cópias para não alterar os DataFrames originais
+    df_train = df_train.copy()
+    df_test = df_test.copy()
+
+    # 1. Drop das colunas de nota (se solicitado)
+    if drop_notas:
+        col_notas = ['nota1', 'nota2', 'nota_final']
+        col_notas_existentes_train = [col for col in col_notas if col in df_train.columns]
+        col_notas_existentes_test = [col for col in col_notas if col in df_test.columns]
+
+        df_train.drop(columns=col_notas_existentes_train, inplace=True)
+        df_test.drop(columns=col_notas_existentes_test, inplace=True)
+
+    # 2. Mapeamentos manuais (binários e ordinais)
+    mappings = {
+        'tamanho_familia': {'Mais de 3 membros': 1, '3 membros ou menos': 0},
+        'aprovacao': {'Aprovado': 1, 'Reprovado': 0}
+    }
+
+    for col, mapa in mappings.items():
+        for df_ in [df_train, df_test]:
+            if col in df_.columns:
+                df_[col] = df_[col].map(mapa)
+                if df_[col].isnull().any():
+                    print(f"Aviso: valores não mapeados ou ausentes na coluna '{col}'.")
+
+    # 3. Mapeamento das colunas binárias Sim/Não
+    bin_cols_sim_nao = [
+        'apoio_escolar', 'apoio_familiar', 'aulas_particulares',
+        'atividades_extracurriculares', 'frequentou_creche',
+        'interesse_ensino_superior', 'acesso_internet', 'relacionamento_romantico'
+    ]
+
+    for col in bin_cols_sim_nao:
+        for df_ in [df_train, df_test]:
+            if col in df_.columns:
+                df_[col] = df_[col].map({'Sim': 1, 'Não': 0})
+                if df_[col].isnull().any():
+                    valores_invalidos = df_.loc[df_[col].isnull(), col].unique()
+                    print(f"Aviso: valores não mapeados na coluna '{col}': {valores_invalidos}")
+
+
+
+    # One-Hot Encoding
+    ohe_cols = [
+        'escola', 'genero', 'endereco', 'status_parental',
+        'profissao_mae', 'profissao_pai', 'motivo_escolha_escola',
+        'responsavel_legal'
+    ]
+    ohe_cols_exist = [c for c in ohe_cols if c in df_train.columns and c in df_test.columns]
+
+    if ohe_cols_exist:
+        ohe = OneHotEncoder(drop='first', sparse_output=False, handle_unknown='ignore')
+        ohe.fit(df_train[ohe_cols_exist])
+
+        df_train_ohe = pd.DataFrame(
+            ohe.transform(df_train[ohe_cols_exist]),
+            columns=ohe.get_feature_names_out(ohe_cols_exist),
+            index=df_train.index
+        )
+        df_test_ohe = pd.DataFrame(
+            ohe.transform(df_test[ohe_cols_exist]),
+            columns=ohe.get_feature_names_out(ohe_cols_exist),
+            index=df_test.index
+        )
+
+        df_train.drop(columns=ohe_cols_exist, inplace=True)
+        df_test.drop(columns=ohe_cols_exist, inplace=True)
+
+        df_train = pd.concat([df_train, df_train_ohe], axis=1)
+        df_test = pd.concat([df_test, df_test_ohe], axis=1)
+    else:
+        print("Nenhuma coluna categórica nominal encontrada para aplicar One-Hot Encoding.")
+
+    # Separar X e y
+    y_train = df_train[target]
+    X_train = df_train.drop(columns=[target])
+
+    y_test = df_test[target]
+    X_test = df_test.drop(columns=[target])
+
+    # Escalonamento (Imputer + StandardScaler)
+    scaler = None
+    imputer = None
+    if scaling:
+        num_cols = X_train.select_dtypes(include='number').columns.tolist()
+
+        imputer = SimpleImputer(strategy='mean')
+        scaler = StandardScaler()
+
+        X_train[num_cols] = imputer.fit_transform(X_train[num_cols])
+        X_test[num_cols] = imputer.transform(X_test[num_cols])
+
+        X_train[num_cols] = scaler.fit_transform(X_train[num_cols])
+        X_test[num_cols] = scaler.transform(X_test[num_cols])
+
+    return X_train, X_test, y_train, y_test, scaler, imputer
+
+
+
+
 def preparar_dados(
     df,
     target_column= None,
@@ -229,8 +354,7 @@ def preparar_dados(
         'profissao_mae', 'profissao_pai', 'motivo_escolha_escola',
         'responsavel_legal'
     ]
-    exist_ohe_cols = [c for c in ohe_cols_cat if c in df_proc] # Apenas as que existem
-    cols_created_by_ohe = [] # Guarda nomes das colunas dummy criadas
+    exist_ohe_cols = [c for c in ohe_cols_cat if c in df.columns]
 
     if exist_ohe_cols:
         # Trata NaNs antes do OHE (preenche com placeholder)

@@ -40,13 +40,19 @@ from documentar_resultados import salvar_figura
 # Bibliotecas python
 import pandas as pd
 import numpy as np
-import statsmodels.api as sm
+
 import seaborn as sns
 import matplotlib.pyplot as plt
+
 from scipy.stats import chi2_contingency, spearmanr, kruskal, shapiro, zscore, entropy
+
+
+import statsmodels.api as sm
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 from statsmodels.stats.diagnostic import het_breuschpagan
 from statsmodels.stats.stattools import durbin_watson
+
+from sklearn.metrics import mean_squared_error
 
 # Import para exibição em notebooks 
 from IPython.display import display
@@ -537,8 +543,13 @@ def regressao_multipla(df, target, variaveis):
         variaveis (List[str]): Lista dos nomes das colunas preditoras.
 
     Returns:
-        statsmodels.regression.linear_model.RegressionResultsWrapper: Objeto
-        de resultados da regressão do statsmodels.
+        Tuple:
+            modelo (statsmodels.regression.linear_model.RegressionResultsWrapper): 
+                Objeto com os resultados do modelo de regressão ajustado.
+            X (pd.DataFrame): 
+                DataFrame contendo os preditores utilizados, incluindo a constante.
+            y (pd.Series): 
+                Série com os valores da variável dependente.
     """
     # Seleciona colunas preditoras e remove linhas com NaN
     X = df[variaveis].dropna()
@@ -548,32 +559,34 @@ def regressao_multipla(df, target, variaveis):
     X_with_const = sm.add_constant(X, has_constant='add')
     # Ajusta e retorna o modelo OLS
     modelo = sm.OLS(y, X_with_const).fit()
-    return modelo
+    
+    return modelo, X_with_const, y
 
 
 def ajustar_regressao(df, target_column, top_n=10):
-    """Ajusta um modelo OLS completo e identifica os principais atributos.
+    """
+    Ajusta um modelo de regressão linear (OLS) e identifica os atributos mais relevantes.
 
-    Ajusta um modelo OLS usando todas as colunas de `df` (exceto
-    `target_column`) como preditores. Exibe o sumário do modelo e lista os
-    `top_n` atributos mais significativos (por p-valor).
+    Ajusta um modelo OLS usando todas as colunas de `df` (exceto `target_column`) como preditores.
+    Exibe o sumário do modelo e lista os `top_n` atributos com menor p-valor.
 
     Args:
-        df (pd.DataFrame): DataFrame com alvo e preditores (numéricos).
-        target_column (str): Nome da coluna alvo.
-        top_n (int, optional): Número de atributos mais relevantes a listar.
-            Default 10.
+        df (pd.DataFrame): DataFrame contendo a variável alvo e os preditores.
+        target_column (str): Nome da coluna que será usada como variável dependente.
+        top_n (int, optional): Número de atributos com menor p-valor a serem retornados. Default é 10.
 
     Returns:
-        Tuple[RegressionResultsWrapper, List[str], pd.Series, pd.Series]:
-            Tupla contendo:
-            - resultados_modelo: Objeto de resultados do statsmodels.
-            - atributos_relevantes: Lista dos nomes dos `top_n` atributos.
+        Tuple:
+            X_with_const (pd.DataFrame): DataFrame com os preditores e uma constante adicionada.
+            Y (pd.Series): Série contendo os valores da variável dependente.
+            resultados (statsmodels.regression.linear_model.RegressionResultsWrapper): Objeto com os resultados da regressão.
+            atributos_relevantes (List[str]): Lista com os nomes dos `top_n` atributos mais relevantes segundo o p-valor.
 
     Notes:
-        - Exibe sumário e resultados para uso interativo.
-        - Assume que `df` contém apenas alvo e preditores numéricos adequados.
+        - Exibe interativamente o sumário do modelo ajustado.
+        - Assume que `df` contém apenas colunas numéricas apropriadas para regressão.
     """
+
     # Separa features (X) e alvo (Y)
     X = df.drop(columns=[target_column], axis=1)
     Y = df[target_column]
@@ -603,7 +616,7 @@ def ajustar_regressao(df, target_column, top_n=10):
 
 
     # Retorna resultados, lista de atributos, 
-    return resultados, atributos_relevantes
+    return X_with_const, Y, resultados, atributos_relevantes
 
 def selecionar_atributos_results_regressao(resultados, top_n=10, display_results=True):
     """Seleciona os atributos mais relevantes de um modelo de regressão por p-valor.
@@ -675,6 +688,32 @@ def selecionar_atributos_results_regressao(resultados, top_n=10, display_results
 
 
 def comparar_modelos_regressao(modelos, nomes):
+    """
+    Compara múltiplos modelos de regressão OLS com base em métricas estatísticas e número de variáveis.
+
+    Para cada modelo da lista, extrai estatísticas como R², AIC, BIC, RMSE e número de variáveis significativas.
+    Retorna um DataFrame com os resultados comparativos, útil para análise de desempenho e parcimônia dos modelos.
+
+    Args:
+        modelos (List[statsmodels.regression.linear_model.RegressionResultsWrapper]): 
+            Lista de modelos OLS ajustados.
+        nomes (List[str]): 
+            Lista de nomes descritivos para os modelos (mesmo comprimento da lista de modelos).
+
+    Returns:
+        pd.DataFrame: 
+            DataFrame contendo as principais métricas de cada modelo, incluindo:
+            - R² e R² ajustado
+            - AIC, BIC, log-likelihood
+            - Estatística F e RMSE
+            - Número total de variáveis (excluindo constante)
+            - Número de variáveis significativas (p-valor < 0.05)
+
+    Raises:
+        Exception: 
+            Caso algum modelo apresente erro ao processar, a exceção é capturada e reportada por print.
+    """
+
     resultados = []
 
     for nome, modelo in zip(nomes, modelos):
@@ -688,7 +727,11 @@ def comparar_modelos_regressao(modelos, nomes):
             f_stat = modelo.fvalue if hasattr(modelo, 'fvalue') else None
             mse_resid = modelo.mse_resid if hasattr(modelo, 'mse_resid') else None
             rmse = np.sqrt(mse_resid) if mse_resid is not None else None
-            signif_vars = (resumo['P>|t|'] < 0.05).sum()
+
+            # Conta as variáveis diferentes de 'const'
+            variaveis = [v for v in resumo.index if v != 'const']
+            n_variaveis = len(variaveis)
+            signif_vars = (resumo.loc[variaveis, 'P>|t|'] < 0.05).sum()
 
             resultados.append({
                 'Modelo': nome,
@@ -699,7 +742,8 @@ def comparar_modelos_regressao(modelos, nomes):
                 'Log-Likelihood': llf,
                 'F-statistic': f_stat,
                 'RMSE': rmse,
-                'Variáveis Significantes': signif_vars
+                'Nº Variáveis': n_variaveis,
+                'Variáveis Significativas (p<0.05)': signif_vars
             })
 
         except Exception as e:
@@ -708,9 +752,12 @@ def comparar_modelos_regressao(modelos, nomes):
     return pd.DataFrame(resultados)
 
 
+
 # ==============================================================================
-# ===================== SEÇÃO: AVALIAÇÃO DE RESÍDUOS ===========================
+# ===================== SEÇÃO: AVALIAÇÃO E RESÍDUOS ===========================
 # ==============================================================================
+
+
 
 def avaliar_residuos_regressao(y_true, y_pred, nome_modelo='modelo', materia=None, salvar=False):
     """Avalia os resíduos de um modelo de regressão com plots e testes.
