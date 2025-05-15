@@ -388,7 +388,7 @@ def avaliar_classificadores_binarios_otimizados(
                 axs[2].set_xlabel("Predito")
 
                 # Título geral
-                plt.suptitle(f"{nome_modelo} - Avaliação Sem Otimização ({formatar_titulo(materia)})", fontsize=12)
+                plt.suptitle(f"{nome_modelo} - Avaliação de Modelo - ({formatar_titulo(materia)})", fontsize=12)
                 plt.tight_layout(rect=[0, 0.03, 1, 0.92])  # Layout ajustado
 
                 if salvar:
