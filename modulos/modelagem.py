@@ -282,47 +282,6 @@ def avaliar_classificadores_binarios_otimizados(
             # ----Plotar Matrizes de Confusão ===
             # Condições: Otimização realizada E predições disponíveis para ambos
 
-        if grid_performed and 'y_pred' in locals() and 'y_pred_opt' in locals():
-            print("  Gerando matrizes de confusão comparativas...")
-            try:
-                # Calcula as matrizes de confusão
-                cm = confusion_matrix(y_test, y_pred)
-                cm_opt = confusion_matrix(y_test, y_pred_opt)
-                labels = ['Reprovado', 'Aprovado'] # Assume 0=Reprovado, 1=Aprovado
-
-                # Cria figura com 2 subplots
-                fig_cm, axs_cm = plt.subplots(1, 2, figsize=(6.4, 4.2)) # Ajustar figsize conforme necessário
-
-                # Paletas simples baseadas nas cores já definidas
-                cmap_sem_otim = sns.light_palette(cor_0, as_cmap=True)
-                cmap_com_otim = sns.light_palette(cor_1, as_cmap=True)
-
-                # Plot Matriz de Confusão - Sem Otimização
-                sns.heatmap(cm, annot=True, fmt='d', cmap=cmap_sem_otim, ax=axs_cm[0],
-                            xticklabels=labels, yticklabels=labels, annot_kws={"size": 12}, cbar=False) # Aumentar annot_kws size
-                axs_cm[0].set_title(f"{nome_modelo} - Sem Otimização")
-                axs_cm[0].set_ylabel('Verdadeiro')
-                axs_cm[0].set_xlabel('Previsto')
-
-                # Plot Matriz de Confusão - Com Otimização
-                sns.heatmap(cm_opt, annot=True, fmt='d', cmap=cmap_com_otim, ax=axs_cm[1],
-                            xticklabels=labels, yticklabels=labels, annot_kws={"size": 12}, cbar=False)
-                axs_cm[1].set_title(f"{nome_modelo} - Com Otimização")
-                axs_cm[1].set_ylabel('Verdadeiro')
-                axs_cm[1].set_xlabel('Previsto')
-
-                plt.suptitle(f"Matrizes de Confusão - {nome_modelo} ({formatar_titulo(materia)})", fontsize=14)
-                plt.tight_layout(rect=[0, 0.03, 1, 0.95]) # Ajustar layout
-
-                if salvar:
-                    cm_filename = f"matriz_confusao_{nome_modelo}_{materia}.png"
-                    salvar_figura(nome_arquivo=cm_filename, materia=None, diretorio='matrizes_confusao')
-                
-                plt.show()
-
-            except Exception as e_cm_plot:
-                print(f"  Erro ao gerar matrizes de confusão para {nome_modelo}: {e_cm_plot}")
-
         # --- Plotagem das Curvas ROC e PR ===
         
         # Condições para plotar:
@@ -330,63 +289,118 @@ def avaliar_classificadores_binarios_otimizados(
         # 2. Scores/probabilidades válidos para ambos os modelos (base e otimizado)
 
         if grid_performed and not np.isnan(y_prob).all() and not np.isnan(y_prob_opt).all():
-            print("  Gerando curvas ROC e PR comparativas...")
-            fig, axs = plt.subplots(1, 2, figsize=(7, 5)) # Cria figura com 2 subplots
-
             try:
-                # --- Curva ROC ---
-                fpr, tpr, _ = roc_curve(y_test, y_prob) # Calcula pontos da curva ROC base
-                fpr_opt, tpr_opt, _ = roc_curve(y_test, y_prob_opt) # Calcula pontos da curva ROC otimizada
-                auc_sem_otim = auc(fpr, tpr) # Calcula Área Sob a Curva ROC base
-                auc_com_otim = auc(fpr_opt, tpr_opt) # Calcula Área Sob a Curva ROC otimizada
+                fig, axs = plt.subplots(2, 2, figsize=(10, 8))
 
-                # Plota as curvas ROC
-                axs[0].plot(fpr, tpr, label=f"Sem Otimização (AUC = {auc_sem_otim:.3f})", color=cor_0, lw=2)
-                axs[0].plot(fpr_opt, tpr_opt, label=f"Com Otimização (AUC = {auc_com_otim:.3f})", color=cor_1, lw=2)
-                axs[0].plot([0, 1], [0, 1], 'k--', alpha=0.6) # Linha de referência (aleatório)
-                axs[0].set_title(f"Curva ROC - {nome_modelo}")
-                axs[0].set_xlabel("Taxa de Falsos Positivos (FPR)")
-                axs[0].set_ylabel("Taxa de Verdadeiros Positivos (TPR)")
-                axs[0].legend(loc='lower right',fontsize=6)
-                axs[0].grid(True, linestyle='--', alpha=0.6)
-                axs[0].set_aspect('equal', adjustable='box') # Garante proporção 1:1
+                # --- Curva ROC ---
+                fpr, tpr, _ = roc_curve(y_test, y_prob)
+                fpr_opt, tpr_opt, _ = roc_curve(y_test, y_prob_opt)
+                axs[0, 0].plot(fpr, tpr, label=f"Base (AUC = {auc(fpr, tpr):.3f})", color=cor_0)
+                axs[0, 0].plot(fpr_opt, tpr_opt, label=f"Otimizado (AUC = {auc(fpr_opt, tpr_opt):.3f})", color=cor_1)
+                axs[0, 0].plot([0, 1], [0, 1], 'k--', alpha=0.6)
+                axs[0, 0].set_title("Curva ROC")
+                axs[0, 0].set_xlabel("FPR")
+                axs[0, 0].set_ylabel("TPR")
+                axs[0, 0].legend(fontsize=8)
+                axs[0, 0].grid(True)
 
                 # --- Curva Precision-Recall ---
-                prec, rec, _ = precision_recall_curve(y_test, y_prob) # Calcula pontos da curva PR base
-                prec_opt, rec_opt, _ = precision_recall_curve(y_test, y_prob_opt) # Calcula pontos da curva PR otimizada
-                ap_sem_otim = auc(rec, prec) # Calcula Área Sob a Curva PR (Average Precision) base
-                ap_com_otim = auc(rec_opt, prec_opt) # Calcula Área Sob a Curva PR (Average Precision) otimizada
+                prec, rec, _ = precision_recall_curve(y_test, y_prob)
+                prec_opt, rec_opt, _ = precision_recall_curve(y_test, y_prob_opt)
+                baseline = np.mean(y_test)
+                axs[0, 1].plot(rec, prec, label=f"Base (AP = {auc(rec, prec):.3f})", color=cor_0)
+                axs[0, 1].plot(rec_opt, prec_opt, label=f"Otimizado (AP = {auc(rec_opt, prec_opt):.3f})", color=cor_1)
+                axs[0, 1].axhline(baseline, ls='--', color='k', alpha=0.6)
+                axs[0, 1].set_title("Curva Precision-Recall")
+                axs[0, 1].set_xlabel("Recall")
+                axs[0, 1].set_ylabel("Precisão")
+                axs[0, 1].legend(fontsize=8)
+                axs[0, 1].grid(True)
 
-                # Plota as curvas PR
-                axs[1].plot(rec, prec, label=f"Sem Otimização (AP = {ap_sem_otim:.3f})", color=cor_0, lw=2)
-                axs[1].plot(rec_opt, prec_opt, label=f"Com Otimização (AP = {ap_com_otim:.3f})", color=cor_1, lw=2)
-                # Linha de baseline (classificador aleatório para PR = proporção da classe positiva)
-                baseline = np.sum(y_test == 1) / len(y_test) if isinstance(y_test, np.ndarray) else y_test.mean()
-                axs[1].axhline(baseline, ls='--', color='k', alpha=0.6, label=f'Baseline (AP={baseline:.3f})')
-                axs[1].set_title(f"Curva Precision-Recall - {nome_modelo}")
-                axs[1].set_xlabel("Recall (Sensibilidade / TPR)")
-                axs[1].set_ylabel("Precisão")
-                axs[1].legend(loc='lower left',fontsize=6) # 'best' pode ser uma opção também
-                axs[1].grid(True, linestyle='--', alpha=0.6)
-                axs[1].set_ylim(0, 1.05)
-                axs[1].set_xlim(-0.05, 1.05) # Ajuste xlim para melhor visualização
+                # --- Matriz de Confusão Base ---
+                cm_base = confusion_matrix(y_test, y_pred)
+                sns.heatmap(cm_base, annot=True, fmt='d',
+                            cmap=sns.light_palette(cor_0, as_cmap=True), ax=axs[1, 0],
+                            xticklabels=['Reprovado', 'Aprovado'],
+                            yticklabels=['Reprovado', 'Aprovado'])
+                axs[1, 0].set_title("Matriz Base")
+                axs[1, 0].set_xlabel("Predito")
+                axs[1, 0].set_ylabel("Verdadeiro")
 
-                # Título geral para a figura
+                # --- Matriz de Confusão Otimizado ---
+                cm_opt = confusion_matrix(y_test, y_pred_opt)
+                sns.heatmap(cm_opt, annot=True, fmt='d',
+                            cmap=sns.light_palette(cor_1, as_cmap=True), ax=axs[1, 1],
+                            xticklabels=['Reprovado', 'Aprovado'],
+                            yticklabels=['Reprovado', 'Aprovado'])
+                axs[1, 1].set_title("Matriz Otimizada")
+                axs[1, 1].set_xlabel("Predito")
+                axs[1, 1].set_ylabel("Verdadeiro")
+
                 plt.suptitle(f"Comparativo de Desempenho - {nome_modelo} ({formatar_titulo(materia)})", fontsize=11)
-                plt.tight_layout(rect=[0, 0.03, 1, 0.95]) # Ajusta layout
+                plt.tight_layout(rect=[0, 0.03, 1, 0.95])
 
                 if salvar:
-                    
-                    plot_filename = f"curvas_roc_pr_{nome_modelo}_{materia}.png"
-                    salvar_figura(nome_arquivo=plot_filename, materia=materia, diretorio='curvas_comparativas_models')
+                    nome_fig = f"curvas_confusao_{nome_modelo}_{materia}.png"
+                    salvar_figura(nome_fig, materia)
 
-                plt.show() # Exibe o gráfico
+                plt.show()
 
             except Exception as e_plot:
-                print(f"  Erro ao gerar curvas para {nome_modelo}: {e_plot}")
+                print(f"Erro ao gerar gráficos comparativos para {nome_modelo}: {e_plot}")
 
-        elif not params: # Se não houve otimização
-             print("  Otimização não realizada (sem parâmetros). Pulando curvas comparativas.")
+        elif not grid_performed and not np.isnan(y_prob).all():
+            print("  Gerando curvas ROC, PR e matriz de confusão (modelo base)...")
+            try:
+                fig, axs = plt.subplots(1, 3, figsize=(12, 4.5))  # 3 colunas
+
+                # === Curva ROC ===
+                fpr, tpr, _ = roc_curve(y_test, y_prob)
+                auc_base = auc(fpr, tpr)
+                axs[0].plot(fpr, tpr, label=f"AUC = {auc_base:.3f}", color=cor_0, lw=2)
+                axs[0].plot([0, 1], [0, 1], 'k--', alpha=0.6)
+                axs[0].set_title("Curva ROC")
+                axs[0].set_xlabel("FPR")
+                axs[0].set_ylabel("TPR")
+                axs[0].legend()
+                axs[0].grid(True)
+
+                # === Curva Precision-Recall ===
+                prec, rec, _ = precision_recall_curve(y_test, y_prob)
+                ap_base = auc(rec, prec)
+                baseline = np.sum(y_test == 1) / len(y_test)
+                axs[1].plot(rec, prec, label=f"AP = {ap_base:.3f}", color=cor_0, lw=2)
+                axs[1].axhline(baseline, ls='--', color='k', alpha=0.6, label=f'Baseline (AP={baseline:.3f})')
+                axs[1].set_title("Curva Precision-Recall")
+                axs[1].set_xlabel("Recall")
+                axs[1].set_ylabel("Precisão")
+                axs[1].legend()
+                axs[1].grid(True)
+
+                # === Matriz de Confusão ===
+                cm = confusion_matrix(y_test, y_pred)
+                labels = ['Reprovado', 'Aprovado']
+                cmap_sem_otim = sns.light_palette(cor_0, as_cmap=True)
+                sns.heatmap(cm, annot=True, fmt='d', cmap=cmap_sem_otim, ax=axs[2],
+                            xticklabels=labels, yticklabels=labels, annot_kws={"size": 10}, cbar=False)
+                axs[2].set_title("Matriz de Confusão")
+                axs[2].set_ylabel("Verdadeiro")
+                axs[2].set_xlabel("Predito")
+
+                # Título geral
+                plt.suptitle(f"{nome_modelo} - Avaliação Sem Otimização ({formatar_titulo(materia)})", fontsize=12)
+                plt.tight_layout(rect=[0, 0.03, 1, 0.92])  # Layout ajustado
+
+                if salvar:
+                    nome_arquivo = f"curvas_e_matriz_{nome_modelo}_{materia}.png"
+                    salvar_figura(nome_arquivo=nome_arquivo, materia=materia, diretorio='curvas_comparativas_models')
+
+                plt.show()
+
+            except Exception as e_plot_base:
+                print(f"  Erro ao gerar visualizações do modelo base: {e_plot_base}")
+
+
         else: # Se houve erro na otimização ou no cálculo das probs
              print("  Não foi possível gerar scores/probabilidades para ambos os modelos. Pulando curvas comparativas.")
 
