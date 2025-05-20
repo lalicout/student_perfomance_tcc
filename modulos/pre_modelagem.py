@@ -4,28 +4,27 @@
 """Pré-processamento e preparação de dados de desempenho escolar.
 
 Este módulo fornece um conjunto de funções para as etapas iniciais do pipeline
-de análise de dados, focando na importação, limpeza, transformação e
-preparação de dados brutos de estudantes para subsequente análise exploratória
+de análise de dados, com foco na importação, padronização, transformação e
+preparação de dados brutos de estudantes para posterior análise exploratória
 e modelagem preditiva.
 
-Principais Funcionalidades:
-    - Carregamento de dados de arquivos CSV específicos por disciplina.
-    - Padronização de nomes de colunas e tradução de valores categóricos.
-    - Engenharia de features básica, como a criação de uma variável alvo binária.
-    - Codificação de variáveis categóricas (Label Encoding e One-Hot Encoding).
-    - Tratamento de valores ausentes através de imputação (opcional).
-    - Escalonamento opcional de features numéricas.
-    - Balanceamento de classes para datasets desiguais usando SMOTE-Tomek.
-    - Preparação de conjuntos de dados para tarefas de classificação ou regressão.
+As funcionalidades incluem o carregamento de dados a partir de arquivos CSV
+por disciplina, a padronização de nomes de colunas e a tradução de valores
+categóricos, além da criação de uma variável alvo binária. Também são realizadas
+a codificação de variáveis categóricas (Label Encoding e One-Hot Encoding),
+o tratamento de valores ausentes por meio de imputação, o escalonamento de
+atributos numéricos (opcional) e o balanceamento de classes utilizando
+a técnica SMOTE-Tomek.
 
-O objetivo principal é transformar os dados brutos em um formato limpo,
-estruturado e adequado para as fases seguintes do processo de mineração de dados,
-alinhando-se primariamente com a fase de Preparação de Dados do CRISP-DM.
+O objetivo principal é transformar os dados em um formato limpo, estruturado
+e apropriado para as fases seguintes do processo de mineração de dados,
+em especial para a etapa de preparação de dados conforme o CRISP-DM.
 """
 
-# ==============================================================================
-# ========================== IMPORTAÇÃO DE BIBLIOTECAS =========================
-# ==============================================================================
+
+
+#--IMPORTAÇÃO DE BIBLIOTECAS ----------------------------------
+
 
 import os
 import numpy as np
@@ -35,9 +34,8 @@ from sklearn.impute import SimpleImputer
 from imblearn.combine import SMOTETomek
 
 
-# ==============================================================================
-# ==================== SEÇÃO: IMPORTAÇÃO E LIMPEZA INICIAL =====================
-# ==============================================================================
+
+#-- SEÇÃO: IMPORTAÇÃO E LIMPEZA INICIAL ------------------------
 
 def importar_base(materia, caminho_completo=None):
     """Lê, traduz e realiza padronização inicial de dados de desempenho escolar.
@@ -137,9 +135,9 @@ def importar_base(materia, caminho_completo=None):
 
     return df
 
-# ==============================================================================
-# ================== SEÇÃO: PREPARAÇÃO PARA MODELAGEM ==========================
-# ==============================================================================
+
+# -- PREPARAÇÃO PARA MODELAGEM -----------------------
+
 
 
 
@@ -151,19 +149,30 @@ def preparar_treino_e_teste(
     scaling=True
 ):
     """
-    Prepara os conjuntos de treino e teste para modelagem preditiva.
-    Inclui codificação, imputação, escalonamento e separação em X/y.
+    Prepara os conjuntos de treino e teste para modelagem supervisionada.
+
+    Inclui codificação de variáveis categóricas, mapeamentos binários e ordinais, imputação de valores ausentes, escalonamento de variáveis numéricas e separação em X/y.
+
+    Se `scaling=True`, os conjuntos retornados já estarão com as variáveis numéricas escalonadas (padrão z-score), utilizando `StandardScaler` treinado no conjunto de treino.
 
     Args:
         df_train (pd.DataFrame): Conjunto de treino original.
         df_test (pd.DataFrame): Conjunto de teste original.
-        target (str): Nome da variável alvo. Default 'aprovacao'.
-        drop_notas (bool): Se True, remove colunas nota1, nota2, nota_final. Default True.
-        scaling (bool): Se True, aplica Imputer + StandardScaler nas colunas numéricas. Default True.
+        target (str): Nome da variável alvo. Default é 'aprovacao'.
+        drop_notas (bool): Se True, remove as colunas nota1, nota2 e nota_final. Default é True.
+        scaling (bool): Se True, aplica imputação e escalonamento às variáveis numéricas. Default é True.
 
     Returns:
-        Tuple: (X_train, X_test, y_train, y_test, scaler, imputer)
+        Tuple:
+            X_train (pd.DataFrame): Conjunto de treino com variáveis preditoras (possivelmente escalonadas).
+            X_test (pd.DataFrame): Conjunto de teste com variáveis preditoras (possivelmente escalonadas).
+            y_train (pd.Series): Variável-alvo do treino.
+            y_test (pd.Series): Variável-alvo do teste.
+            scaler (StandardScaler or None): Objeto de escalonamento treinado, ou None se scaling=False.
+            imputer (SimpleImputer or None): Objeto de imputação treinado, ou None se scaling=False.
     """
+
+
 
     # Cópias para não alterar os DataFrames originais
     df_train = df_train.copy()
@@ -273,28 +282,27 @@ def preparar_dados(
     columns_to_drop=None
 ):
     """
-    Prepara o DataFrame para modelagem:
-      1. Remove colunas em columns_to_drop.
-      2. Faz mapeamentos manuais (tamanho_familia, aprovacao, binárias Sim/Não).
-      3. One-Hot Encoding das colunas categóricas nominais.
-      4. (Opcional) Imputa e escala features numéricas, exceto target e binárias.
-      5. Remove linhas com NaNs remanescentes.
+    Aplica transformações completas para preparar o DataFrame para modelagem.
+
+    Realiza remoção de colunas, codificação manual (binária e ordinal), codificação one-hot de variáveis categóricas nominais, e, se solicitado, imputação e escalonamento das variáveis numéricas não binárias.
+
+    Se `scaling=True`, as variáveis numéricas não-binárias são escalonadas com `StandardScaler`, e o resultado final já estará transformado.
 
     Args:
         df (pd.DataFrame): DataFrame original.
-        target_column (str, optional): Nome da coluna alvo (não será escalonada).
-        scaling (bool, optional): Se True, aplica imputação (mean) + StandardScaler. Default None
-            nas features numéricas não binárias (excluindo o alvo). Default False.
-        columns_to_drop (list, optional): Colunas a remover antes de codificar.
-            Default None.
+        target_column (str, optional): Nome da variável alvo (excluída do escalonamento). Default é None.
+        scaling (bool, optional): Se True, aplica imputação (mean) e escalonamento (z-score). Default é False.
+        columns_to_drop (list, optional): Lista de colunas a remover antes do processamento. Default é None.
 
     Returns:
-        pd.DataFrame: DataFrame processado, pronto para posterior separação em X/y.
+        pd.DataFrame: DataFrame processado, com codificações e transformações aplicadas. Se `scaling=True`, já retornado com variáveis numéricas escalonadas.
 
     Raises:
-        ValueError: Se scaling True e target_column não existir no DataFrame.
-        TypeError: Se columns_to_drop não for uma lista ou None.
+        ValueError: Se `scaling=True` e `target_column` não estiver presente no DataFrame.
+        TypeError: Se `columns_to_drop` não for uma lista ou None.
     """
+
+
     # 0) Validações iniciais
 
     if columns_to_drop is not None:
@@ -428,9 +436,7 @@ def preparar_dados(
     return df_proc
 
 
-# ==============================================================================
-# ===================== SEÇÃO: BALANCEAMENTO DE CLASSES ========================
-# ==============================================================================
+# -- SEÇÃO: BALANCEAMENTO DE CLASSES ---------------------
 
 def balancear_dados(X, y, r_state = 42):
     """Aplica a técnica SMOTE-Tomek para balancear a distribuição de classes.

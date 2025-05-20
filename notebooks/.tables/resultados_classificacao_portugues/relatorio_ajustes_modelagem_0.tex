@@ -1,0 +1,33 @@
+\begin{table}[H] % Requer float package
+    \centering
+    \caption{Tabela: Relatorio ajustes modelagem 0}
+    \label{tab:relatorio_ajustes_modelagem_0}
+    \renewcommand{\arraystretch}{1.25} % Aumenta espaçamento vertical
+    \begin{adjustwidth}{ -1in }{ -1in } % Requer changepage package
+    \centering % Centraliza a tabela dentro do adjustwidth
+    \small % Reduz tamanho da fonte
+    \begin{tabular}{lllllllllll}
+\toprule
+                            Modelo & Δ Acurácia & Δ Precisão(1) & Δ Precisão(0) & Δ Recall(1) & Δ Recall(0) & Δ F1 Score (Reprovado) & Δ F1 Score (Macro) & Δ AUC ROC & Média Δ (%) &                         Diagnóstico \\
+\midrule
+Logistic Regression Sem Otimizacao &       0.7% &         -0.9% &         -1.7% &        2.2% &      -26.2% &                 -16.7% &              -4.0% &      3.5% &       -5.4% &                                  OK \\
+Logistic Regression Com Otimizacao &       0.7% &         -0.9% &         -1.7% &        2.2% &      -26.2% &                 -16.7% &              -4.0% &      3.5% &       -5.4% &                                  OK \\
+      Decision Tree Sem Otimizacao &      -2.9% &         -2.7% &        -22.8% &       -0.2% &      -29.3% &                 -24.5% &              -8.7% &    -10.5% &      -12.7% & Underfitting Potencial / Teste Ruim \\
+      Decision Tree Com Otimizacao &      -3.1% &         -1.0% &        -19.4% &       -2.5% &       -9.7% &                 -13.8% &              -5.8% &      3.2% &       -6.5% &                                  OK \\
+      Random Forest Sem Otimizacao &      -0.5% &          0.2% &         19.9% &       -0.9% &       16.8% &                  17.9% &               3.0% &     -0.8% &        7.0% &                                  OK \\
+      Random Forest Com Otimizacao &      -0.7% &         -0.2% &        -14.2% &       -0.6% &       -2.9% &                   0.0% &              -0.3% &     -4.3% &       -2.9% &                                  OK \\
+           AdaBoost Sem Otimizacao &       5.7% &          1.0% &         58.0% &        5.5% &        6.1% &                  25.0% &               9.5% &      7.7% &       14.8% &               Overfitting Potencial \\
+           AdaBoost Com Otimizacao &       1.2% &         -0.9% &          5.3% &        2.8% &      -22.2% &                 -10.6% &              -2.6% &      2.7% &       -3.0% &                                  OK \\
+                SVM Sem Otimizacao &      -1.1% &         -0.6% &        -33.4% &       -0.4% &      -53.5% &                 -50.0% &              -6.3% &      3.3% &      -17.8% & Underfitting Potencial / Teste Ruim \\
+                SVM Com Otimizacao &      -2.3% &         -1.5% &        -20.3% &       -1.2% &      -22.2% &                 -20.7% &              -7.4% &      1.4% &       -9.3% &                                  OK \\
+\bottomrule
+\end{tabular}
+    \end{adjustwidth}
+    \renewcommand{\arraystretch}{1.0} % Restaura espaçamento padrão
+\end{table}
+% Para inserir esta tabela no texto principal do LaTeX:
+% ----------------------------------------------------
+% \usepackage{float} % No preâmbulo
+% \usepackage[strict]{changepage} % No preâmbulo (ou apenas \usepackage{changepage})
+% \usepackage{booktabs} % Geralmente necessário para tabelas do Pandas
+% \input{.tables/resultados_classificacao_portugues/relatorio_ajustes_modelagem_0.tex} % Gera caminho relativo

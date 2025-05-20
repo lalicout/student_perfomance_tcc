@@ -1,7 +1,8 @@
 # ======================================
 # Módulo: feature_selection.py
 # ======================================
-"""Seleção de atributos e análises estatísticas para modelagem.
+"""
+Seleção de atributos e análises estatísticas para modelagem.
 
 Este módulo agrupa funcionalidades voltadas para a etapa de seleção de
 atributos em pipelines de machine learning e análise de dados. Ele oferece
@@ -52,8 +53,6 @@ from statsmodels.stats.outliers_influence import variance_inflation_factor
 from statsmodels.stats.diagnostic import het_breuschpagan
 from statsmodels.stats.stattools import durbin_watson
 
-from sklearn.metrics import mean_squared_error
-
 # Import para exibição em notebooks 
 from IPython.display import display
 
@@ -62,29 +61,29 @@ from IPython.display import display
 # ==============================================================================
 
 def relatorio_multicolinearidade(df, limite_vif=5.0, limite_corr=0.7):
-    """Gera um relatório detalhado de multicolinearidade entre variáveis numéricas.
+    """
+    Gera um relatório detalhado de multicolinearidade entre variáveis numéricas.
 
-    Analisa um DataFrame de preditores numéricos para identificar
-    multicolinearidade, calculando VIF e correlações entre pares. Combina
-    essas informações em um relatório resumido e lista pares altamente
-    correlacionados.
+    Esta função calcula o Fator de Inflação de Variância (VIF) e a matriz de 
+    correlação para detectar redundâncias entre preditores numéricos. Também 
+    identifica pares de variáveis altamente correlacionadas.
 
     Args:
-        df (pd.DataFrame): DataFrame contendo as variáveis preditoras
-            numéricas a serem analisadas. Recomenda-se tratar NaNs antes.
-        limite_vif (float, optional): Limiar de VIF acima do qual a variável
-            é considerada problemática. Default 5.0.
-        limite_corr (float, optional): Limiar de correlação absoluta para
-            identificar pares fortemente correlacionados. Default 0.7.
+        df (pd.DataFrame): DataFrame contendo as variáveis preditoras numéricas.
+        limite_vif (float, optional): Valor de corte para o VIF. Variáveis acima 
+            desse limiar são consideradas colineares. Default é 5.0.
+        limite_corr (float, optional): Valor de corte para correlação absoluta. 
+            Pares com correlação acima desse valor são destacados. Default é 0.7.
 
     Returns:
-        Tuple[pd.DataFrame, pd.DataFrame]: Uma tupla contendo:
-            - resumo_vif (pd.DataFrame): Tabela com VIF, variáveis altamente
-              correlacionadas e avaliação textual para cada preditor.
-              Ordenado por VIF decrescente.
-            - pares_altamente_correlacionados (pd.DataFrame): Lista dos pares
-              de variáveis com correlação acima de `limite_corr`.
+        Tuple[pd.DataFrame, pd.DataFrame]: 
+            - Um DataFrame com VIF, pares correlacionados e avaliação textual.
+            - Um DataFrame com os pares de variáveis com correlação > `limite_corr`.
+
+    Raises:
+        ValueError: Se o DataFrame estiver vazio ou não contiver colunas numéricas.
     """
+
     # === 1. Seleciona numéricas e calcula VIF ===
     # Seleciona apenas colunas numéricas e remove linhas com NaN para os cálculos
     X = df.select_dtypes(include=[np.number]).dropna()

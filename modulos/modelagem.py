@@ -61,7 +61,7 @@ from IPython.display import display # Usado para exibir DataFrames em notebooks
 # ==============================================================================
 
 def avaliar_classificadores_binarios_otimizados(
-    X_train, y_train,X_test,y_test, classificadores, param_spaces=None,
+    X_train, y_train,X_test,y_test, classificadores,modelagem, param_spaces=None,
     usar_balanceamento=False, materia='portugues',
     salvar = True
 ):
@@ -81,6 +81,7 @@ def avaliar_classificadores_binarios_otimizados(
         X_train, y_train (DataFrame, Series): Conjunto de treino.
         X_test, y_test (DataFrame, Series): Conjunto de teste.
         classificadores (Dict[str, Any]): Dicionário {nome_modelo: instancia_modelo_base}.
+        modelagem(str) : Identificador da Metodologia de modelagem aplicada.
         param_spaces (Optional[Dict[str, Dict[str, List[Any]]]], optional):
             Dicionário {nome_modelo: grid_hiperparametros} para GridSearchCV.
             Default None (sem otimização).
@@ -341,8 +342,8 @@ def avaliar_classificadores_binarios_otimizados(
                 plt.tight_layout(rect=[0, 0.03, 1, 0.95])
 
                 if salvar:
-                    nome_fig = f"curvas_confusao_{nome_modelo}_{materia}.png"
-                    salvar_figura(nome_fig, materia)
+                    nome_fig = f"curvas_confusao_{nome_modelo}_{modelagem}_{materia}"
+                    salvar_figura(nome_fig, materia,diretorio='modelos_classificacao')
 
                 plt.show()
 
@@ -392,8 +393,8 @@ def avaliar_classificadores_binarios_otimizados(
                 plt.tight_layout(rect=[0, 0.03, 1, 0.92])  # Layout ajustado
 
                 if salvar:
-                    nome_arquivo = f"curvas_e_matriz_{nome_modelo}_{materia}.png"
-                    salvar_figura(nome_arquivo=nome_arquivo, materia=materia, diretorio='curvas_comparativas_models')
+                    nome_arquivo = f"curvas_e_matriz_{nome_modelo}_{modelagem}"
+                    salvar_figura(nome_arquivo=nome_arquivo, materia=materia, diretorio='modelos_classificacao')
 
                 plt.show()
 

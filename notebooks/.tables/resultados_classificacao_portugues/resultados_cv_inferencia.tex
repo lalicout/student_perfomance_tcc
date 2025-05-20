@@ -1,0 +1,33 @@
+\begin{table}[H] % Requer float package
+    \centering
+    \caption{Tabela: Resultados cv inferencia}
+    \label{tab:resultados_cv_inferencia}
+    \renewcommand{\arraystretch}{1.25} % Aumenta espaçamento vertical
+    \begin{adjustwidth}{ -1in }{ -1in } % Requer changepage package
+    \centering % Centraliza a tabela dentro do adjustwidth
+    \small % Reduz tamanho da fonte
+    \begin{tabular}{lrrrrrrrr}
+\toprule
+                            Modelo &  Validação Cruzada (AUC ROC) &  Validação Cruzada (Acurácia) &  Validação Cruzada (Precisão(0)) &  Validação Cruzada (Precisão(1)) &  Validação Cruzada (Recall(0)) &  Validação Cruzada (Recall(1)) &  Validação Cruzada (F1 Score (Reprovado)) &  Validação Cruzada (F1 Score (Macro)) \\
+\midrule
+Logistic Regression Sem Otimizacao &                        0.804 &                         0.833 &                            0.497 &                            0.869 &                          0.214 &                          0.945 &                                     0.272 &                                 0.589 \\
+Logistic Regression Com Otimizacao &                        0.820 &                         0.789 &                            0.404 &                            0.939 &                          0.714 &                          0.802 &                                     0.513 &                                 0.689 \\
+      Decision Tree Sem Otimizacao &                        0.662 &                         0.793 &                            0.367 &                            0.899 &                          0.471 &                          0.852 &                                     0.410 &                                 0.642 \\
+      Decision Tree Com Otimizacao &                        0.762 &                         0.789 &                            0.397 &                            0.939 &                          0.714 &                          0.802 &                                     0.510 &                                 0.687 \\
+      Random Forest Sem Otimizacao &                        0.843 &                         0.841 &                            0.518 &                            0.869 &                          0.200 &                          0.958 &                                     0.255 &                                 0.583 \\
+      Random Forest Com Otimizacao &                        0.837 &                         0.859 &                            0.564 &                            0.900 &                          0.429 &                          0.938 &                                     0.478 &                                 0.698 \\
+           AdaBoost Sem Otimizacao &                        0.774 &                         0.830 &                            0.419 &                            0.880 &                          0.300 &                          0.927 &                                     0.343 &                                 0.623 \\
+           AdaBoost Com Otimizacao &                        0.813 &                         0.864 &                            0.592 &                            0.903 &                          0.443 &                          0.940 &                                     0.500 &                                 0.710 \\
+                SVM Sem Otimizacao &                        0.829 &                         0.866 &                            0.793 &                            0.870 &                          0.186 &                          0.990 &                                     0.286 &                                 0.606 \\
+                SVM Com Otimizacao &                        0.847 &                         0.817 &                            0.448 &                            0.924 &                          0.614 &                          0.854 &                                     0.513 &                                 0.700 \\
+\bottomrule
+\end{tabular}
+    \end{adjustwidth}
+    \renewcommand{\arraystretch}{1.0} % Restaura espaçamento padrão
+\end{table}
+% Para inserir esta tabela no texto principal do LaTeX:
+% ----------------------------------------------------
+% \usepackage{float} % No preâmbulo
+% \usepackage[strict]{changepage} % No preâmbulo (ou apenas \usepackage{changepage})
+% \usepackage{booktabs} % Geralmente necessário para tabelas do Pandas
+% \input{.tables/resultados_classificacao_portugues/resultados_cv_inferencia.tex} % Gera caminho relativo
